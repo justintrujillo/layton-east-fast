@@ -427,19 +427,17 @@
     const allDates = Object.keys(coverage).sort();
 
     // Stats
-    let totalSignups = 0, coveredDays = 0, openDays = 0;
+    let totalSignups = 0, coveredDays = 0;
     allDates.forEach(d => {
       const count = (coverage[d] || []).length;
       totalSignups += count;
       const uniqueWards = new Set((coverage[d] || []).map(s => s.ward)).size;
 if (uniqueWards === 7) coveredDays++;
-else openDays++;
     });
 
     document.getElementById('statTotal').textContent   = totalSignups;
     document.getElementById('statCovered').textContent = coveredDays;
-    document.getElementById('statOpen').textContent    = openDays;
-
+    
     // Tomorrow
     const tomorrow = new Date();
     tomorrow.setDate(tomorrow.getDate() + 1);
