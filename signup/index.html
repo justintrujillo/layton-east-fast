@@ -1,1 +1,609 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>40-Day Fast Sign-Up — Layton Utah East Stake</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    /* ── Variables ── */
+    :root {
+      --gold:    #C4992A;
+      --gold-lt: #E8C96A;
+      --cream:   #FAF7F2;
+      --ink:     #1C1A17;
+      --muted:   #6B6355;
+      --border:  #E0D8CC;
+      --green:   #3A7D5C;
+      --red:     #B85042;
+      --taken:   #F0EBE3;
+    }
 
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--ink);
+      color: var(--cream);
+      text-align: center;
+      padding: 3rem 1.5rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    header::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(196,153,42,0.18) 0%, transparent 70%);
+    }
+    .header-eyebrow {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 0.75rem;
+    }
+    header h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 600;
+      line-height: 1.1;
+      margin-bottom: 0.5rem;
+    }
+    header h1 em {
+      font-style: italic;
+      color: var(--gold-lt);
+    }
+    .header-sub {
+      font-size: 0.85rem;
+      color: rgba(250,247,242,0.6);
+      font-weight: 300;
+      margin-top: 0.5rem;
+    }
+    .ward-badge {
+      display: inline-block;
+      margin-top: 1.25rem;
+      background: rgba(196,153,42,0.15);
+      border: 1px solid rgba(196,153,42,0.4);
+      color: var(--gold-lt);
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 0.35rem 1rem;
+      border-radius: 2rem;
+    }
+
+    /* ── Main layout ── */
+    main {
+      max-width: 680px;
+      margin: 0 auto;
+      padding: 2.5rem 1.5rem 4rem;
+    }
+
+    /* ── Section titles ── */
+    .section-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 0.25rem;
+    }
+    .section-sub {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 1.25rem;
+    }
+
+    /* ── Calendar grid ── */
+    .calendar-wrap {
+      margin-bottom: 2.5rem;
+    }
+    .calendar-header-row {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+      margin-bottom: 3px;
+    }
+    .calendar-header-row span {
+      text-align: center;
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      padding: 0.2rem 0;
+    }
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 3px;
+    }
+    .day-cell {
+      aspect-ratio: 1;
+      border-radius: 6px;
+      border: 1.5px solid var(--border);
+      background: white;
+      cursor: pointer;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s ease;
+      position: relative;
+      padding: 2px;
+    }
+    .day-cell:hover:not(.taken):not(.empty-cell) {
+      border-color: var(--gold);
+      background: #FFFBF2;
+      transform: translateY(-1px);
+      box-shadow: 0 3px 10px rgba(196,153,42,0.15);
+    }
+    .day-cell.selected {
+      background: var(--gold);
+      border-color: var(--gold);
+      color: white;
+    }
+    .day-cell.taken {
+      background: var(--taken);
+      border-color: #D8D0C8;
+      cursor: default;
+    }
+    .day-cell.empty-cell {
+      background: transparent;
+      border-color: transparent;
+      cursor: default;
+    }
+    .day-num {
+      font-size: 0.78rem;
+      font-weight: 500;
+      line-height: 1;
+    }
+    .day-month {
+      font-size: 0.55rem;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+    .day-cell.selected .day-month { color: rgba(255,255,255,0.75); }
+    .day-cell.taken .day-num { color: #A09890; }
+    .day-taken-dot {
+      width: 4px; height: 4px;
+      border-radius: 50%;
+      background: var(--green);
+      margin-top: 2px;
+    }
+
+    /* ── Legend ── */
+    .legend {
+      display: flex;
+      gap: 1.25rem;
+      margin-top: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.72rem;
+      color: var(--muted);
+    }
+    .legend-dot {
+      width: 12px; height: 12px;
+      border-radius: 3px;
+      border: 1.5px solid var(--border);
+    }
+    .legend-dot.avail  { background: white; }
+    .legend-dot.sel    { background: var(--gold); border-color: var(--gold); }
+    .legend-dot.filled { background: var(--taken); }
+
+    /* ── Form ── */
+    .signup-form {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.75rem;
+    }
+    .selected-date-display {
+      background: #FFFBF2;
+      border: 1px solid rgba(196,153,42,0.35);
+      border-radius: 8px;
+      padding: 0.9rem 1.1rem;
+      margin-bottom: 1.5rem;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.1rem;
+      color: var(--ink);
+    }
+    .selected-date-display span {
+      display: block;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--gold);
+      font-weight: 500;
+      margin-bottom: 0.2rem;
+    }
+    label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 0.4rem;
+    }
+    input[type="text"], input[type="email"], input[type="tel"] {
+      width: 100%;
+      padding: 0.65rem 0.85rem;
+      border: 1.5px solid var(--border);
+      border-radius: 7px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      color: var(--ink);
+      background: var(--cream);
+      transition: border-color 0.15s;
+      margin-bottom: 1.1rem;
+    }
+    input:focus {
+      outline: none;
+      border-color: var(--gold);
+      background: white;
+    }
+    .form-note {
+      font-size: 0.73rem;
+      color: var(--muted);
+      margin-top: -0.7rem;
+      margin-bottom: 1.1rem;
+    }
+    .btn-submit {
+      width: 100%;
+      padding: 0.85rem;
+      background: var(--ink);
+      color: var(--cream);
+      border: none;
+      border-radius: 8px;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.15s, transform 0.1s;
+    }
+    .btn-submit:hover:not(:disabled) {
+      background: #2E2B25;
+      transform: translateY(-1px);
+    }
+    .btn-submit:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    /* ── No date selected state ── */
+    .no-date-msg {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+    .no-date-msg .arrow {
+      font-size: 1.5rem;
+      display: block;
+      margin-bottom: 0.5rem;
+      opacity: 0.4;
+    }
+
+    /* ── Success state ── */
+    .success-card {
+      text-align: center;
+      padding: 3rem 2rem;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+    .success-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+    .success-card h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.75rem;
+      margin-bottom: 0.5rem;
+    }
+    .success-card p {
+      font-size: 0.85rem;
+      color: var(--muted);
+      max-width: 320px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* ── Toast ── */
+    .toast {
+      position: fixed;
+      bottom: 1.5rem;
+      left: 50%;
+      transform: translateX(-50%) translateY(4rem);
+      background: var(--ink);
+      color: var(--cream);
+      padding: 0.75rem 1.5rem;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      transition: transform 0.3s ease;
+      z-index: 999;
+      white-space: nowrap;
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); }
+    .toast.error { background: var(--red); }
+
+    /* ── Loading overlay ── */
+    .loading-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(28,26,23,0.35);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    .loading-overlay.active { display: flex; }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid rgba(250,247,242,0.3);
+      border-top-color: var(--cream);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="header-eyebrow">Layton Utah East Stake</div>
+  <h1>40-Day Fast<br><em>One in Christ</em></h1>
+  <div class="header-sub">April 28 – June 6, 2026 &nbsp;·&nbsp; Stake Conference June 7–8</div>
+  <div class="ward-badge" id="wardBadge">Loading ward…</div>
+</header>
+
+<main>
+
+  <!-- Calendar -->
+  <div class="calendar-wrap">
+    <div class="section-title">Choose Your Fast Day</div>
+    <div class="section-sub">Select a day below. Multiple families may sign up for the same day.</div>
+    <div class="calendar-header-row">
+      <span>Sun</span><span>Mon</span><span>Tue</span>
+      <span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
+    </div>
+    <div class="calendar-grid" id="calendarGrid">
+      <!-- JS builds this -->
+    </div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot avail"></div> Available</div>
+      <div class="legend-item"><div class="legend-dot sel"></div> Your selection</div>
+      <div class="legend-item"><div class="legend-dot filled"></div> Already has sign-ups</div>
+    </div>
+  </div>
+
+  <!-- Form -->
+  <div id="formSection">
+    <div class="section-title">Your Information</div>
+    <div class="section-sub" id="formSub">Select a day above to continue.</div>
+
+    <div id="noDateMsg" class="no-date-msg">
+      <span class="arrow">↑</span>
+      Tap a day on the calendar to get started
+    </div>
+
+    <div id="signupForm" class="signup-form" style="display:none;">
+      <div class="selected-date-display" id="selectedDateDisplay">
+        <span>Fasting on</span>
+        <span id="selectedDateText">—</span>
+      </div>
+
+      <label for="nameInput">Your Name or Family Name *</label>
+      <input type="text" id="nameInput" placeholder="e.g. The Johnson Family" autocomplete="name" />
+
+      <label for="contactInput">Phone or Email <em style="font-style:normal;color:#A09890;">(optional)</em></label>
+      <input type="text" id="contactInput" placeholder="For stake leaders to reach out" autocomplete="email" />
+      <div class="form-note">Used only so we can thank you for participating.</div>
+
+      <button class="btn-submit" id="submitBtn" onclick="submitSignup()">
+        Sign Me Up
+      </button>
+    </div>
+
+    <div id="successCard" class="success-card" style="display:none;">
+      <div class="success-icon">🕊️</div>
+      <h2>You're signed up!</h2>
+      <p id="successText">Thank you for joining the fast. Your faith is helping to gather Israel.</p>
+    </div>
+  </div>
+
+</main>
+
+<div class="toast" id="toast"></div>
+<div class="loading-overlay" id="loadingOverlay"><div class="spinner"></div></div>
+
+<script>
+  // ── Config ──────────────────────────────────────────────
+  const APPS_SCRIPT_URL = 'YOUR_APPS_SCRIPT_URL_HERE'; // Replace after deploying
+  const FAST_START = new Date('2026-04-28T00:00:00');
+  const FAST_END   = new Date('2026-06-06T00:00:00');
+
+  const WARD_NAMES = {
+    'layton1st':   'Adams Park',
+  'layton2nd':   'Cherry Lane',
+  'layton3rd':   'Country Hollow',
+  'layton4th':   'Emerald',
+  'layton5th':   'Fairfield 2nd',
+  'layton6th':   'Falcon Ridge',
+  'layton7th':   'Snow Creek',
+  };
+
+  const MONTHS = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  const MONTH_FULL = ['January','February','March','April','May','June',
+                      'July','August','September','October','November','December'];
+
+  let currentWard   = '';
+  let selectedDate  = '';
+  let takenDays     = {};
+
+  // ── Init ────────────────────────────────────────────────
+  async function init() {
+    const params = new URLSearchParams(window.location.search);
+    currentWard  = params.get('ward') || '';
+
+    if (!WARD_NAMES[currentWard]) {
+      document.getElementById('wardBadge').textContent = 'Unknown Ward';
+      showToast('Invalid ward link. Please use the link provided by your ward.', true);
+      return;
+    }
+
+    document.getElementById('wardBadge').textContent = WARD_NAMES[currentWard];
+    document.title = `Fast Sign-Up — ${WARD_NAMES[currentWard]}`;
+
+    await loadWardData();
+    buildCalendar();
+  }
+
+  async function loadWardData() {
+    try {
+      const res  = await fetch(`${APPS_SCRIPT_URL}?ward=${currentWard}`);
+      const data = await res.json();
+      takenDays  = data.days || {};
+    } catch (e) {
+      takenDays = {};
+    }
+  }
+
+  // ── Calendar ─────────────────────────────────────────────
+  function buildCalendar() {
+    const grid = document.getElementById('calendarGrid');
+    grid.innerHTML = '';
+
+    // Pad to start on correct day of week
+    const startDow = FAST_START.getDay(); // 0=Sun
+    for (let i = 0; i < startDow; i++) {
+      const empty = document.createElement('div');
+      empty.className = 'day-cell empty-cell';
+      grid.appendChild(empty);
+    }
+
+    const cur = new Date(FAST_START);
+    while (cur <= FAST_END) {
+      const dateKey = toDateKey(cur);
+      const signups = takenDays[dateKey] || [];
+      const hasSig  = signups.length > 0;
+
+      const cell = document.createElement('div');
+      cell.className = 'day-cell' + (hasSig ? ' taken' : '');
+      cell.dataset.date = dateKey;
+      cell.innerHTML = `
+        <span class="day-num">${cur.getDate()}</span>
+        <span class="day-month">${MONTHS[cur.getMonth()]}</span>
+        ${hasSig ? '<div class="day-taken-dot"></div>' : ''}
+      `;
+      cell.addEventListener('click', () => selectDay(dateKey, cell));
+      grid.appendChild(cell);
+
+      cur.setDate(cur.getDate() + 1);
+    }
+  }
+
+  function selectDay(dateKey, cell) {
+    // Deselect previous
+    document.querySelectorAll('.day-cell.selected').forEach(c => c.classList.remove('selected'));
+
+    selectedDate = dateKey;
+    cell.classList.add('selected');
+
+    // Show form
+    const [y, m, d] = dateKey.split('-').map(Number);
+    const label = `${MONTH_FULL[m-1]} ${d}, ${y}`;
+    document.getElementById('selectedDateText').textContent = label;
+    document.getElementById('noDateMsg').style.display   = 'none';
+    document.getElementById('signupForm').style.display  = 'block';
+    document.getElementById('successCard').style.display = 'none';
+    document.getElementById('formSub').textContent = `Signing up for ${label}`;
+  }
+
+  // ── Submit ───────────────────────────────────────────────
+  async function submitSignup() {
+    const name    = document.getElementById('nameInput').value.trim();
+    const contact = document.getElementById('contactInput').value.trim();
+
+    if (!selectedDate) { showToast('Please select a day first.', true); return; }
+    if (!name)         { showToast('Please enter your name.', true);    return; }
+
+    setLoading(true);
+    document.getElementById('submitBtn').disabled = true;
+
+    try {
+      const res  = await fetch(APPS_SCRIPT_URL, {
+        method: 'POST',
+        body:   JSON.stringify({ ward: currentWard, date: selectedDate, name, contact })
+      });
+      const data = await res.json();
+
+      if (data.success) {
+        document.getElementById('signupForm').style.display  = 'none';
+        document.getElementById('successCard').style.display = 'block';
+        document.getElementById('successText').textContent   =
+          `Thank you, ${name}! Your fast on ${formatDate(selectedDate)} has been recorded. ` +
+          `A stake leader will reach out to you the day before to express our gratitude.`;
+
+        // Mark day as taken on calendar
+        const cell = document.querySelector(`.day-cell[data-date="${selectedDate}"]`);
+        if (cell) cell.classList.add('taken');
+
+        showToast('Sign-up successful! 🙏');
+      } else {
+        showToast(data.error || 'Something went wrong. Please try again.', true);
+        document.getElementById('submitBtn').disabled = false;
+      }
+    } catch (e) {
+      showToast('Network error. Please try again.', true);
+      document.getElementById('submitBtn').disabled = false;
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  // ── Utilities ────────────────────────────────────────────
+  function toDateKey(date) {
+    return date.toISOString().substring(0, 10);
+  }
+  function formatDate(dateKey) {
+    const [y, m, d] = dateKey.split('-').map(Number);
+    return `${MONTH_FULL[m-1]} ${d}, ${y}`;
+  }
+  function setLoading(on) {
+    document.getElementById('loadingOverlay').classList.toggle('active', on);
+  }
+  function showToast(msg, isError = false) {
+    const t = document.getElementById('toast');
+    t.textContent = msg;
+    t.className   = 'toast' + (isError ? ' error' : '');
+    t.classList.add('show');
+    setTimeout(() => t.classList.remove('show'), 3500);
+  }
+
+  init();
+</script>
+</body>
+</html>
