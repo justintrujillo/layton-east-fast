@@ -435,8 +435,9 @@
     allDates.forEach(d => {
       const count = (coverage[d] || []).length;
       totalSignups += count;
-      if (count > 0) coveredDays++;
-      else openDays++;
+      const uniqueWards = new Set((coverage[d] || []).map(s => s.ward)).size;
+if (uniqueWards === 7) coveredDays++;
+else openDays++;
     });
 
     document.getElementById('statTotal').textContent   = totalSignups;
@@ -460,29 +461,30 @@
   }
 
   function renderFastGrid(coverage, allDates) {
-    const grid = document.getElementById('fastGrid');
-    grid.innerHTML = '';
-    allDates.forEach((dateKey, i) => {
-      const signups = coverage[dateKey] || [];
-      const count   = signups.length;
-      const [y, m, d] = dateKey.split('-').map(Number);
+  const grid = document.getElementById('fastGrid');
+  grid.innerHTML = '';
+  const TOTAL_WARDS = 7;
+  allDates.forEach((dateKey) => {
+    const signups = coverage[dateKey] || [];
+    const uniqueWards = new Set(signups.map(s => s.ward)).size;
+    const [y, m, d] = dateKey.split('-').map(Number);
 
-      let cls = 'fast-day ';
-      if (count === 0)      cls += 'empty';
-      else if (count === 1) cls += 'partial';
-      else                  cls += 'covered';
+    let cls = 'fast-day ';
+    if (uniqueWards === 0)             cls += 'empty';
+    else if (uniqueWards < TOTAL_WARDS) cls += 'partial';
+    else                                cls += 'covered';
 
-      const cell = document.createElement('div');
-      cell.className = cls;
-      cell.innerHTML = `
-        <span class="fd-num">${d}</span>
-        <span class="fd-mon">${MONTHS_SHORT[m-1]}</span>
-        ${count > 0 ? `<span class="fd-count">${count}</span>` : ''}
-      `;
-      cell.addEventListener('click', () => showDayDetail(dateKey, signups));
-      grid.appendChild(cell);
-    });
-  }
+    const cell = document.createElement('div');
+    cell.className = cls;
+    cell.innerHTML = `
+      <span class="fd-num">${d}</span>
+      <span class="fd-mon">${MONTHS_SHORT[m-1]}</span>
+      ${uniqueWards > 0 ? `<span class="fd-count">${uniqueWards}/${TOTAL_WARDS}</span>` : ''}
+    `;
+    cell.addEventListener('click', () => showDayDetail(dateKey, signups));
+    grid.appendChild(cell);
+  });
+}
 
   function renderWardTable(wards, totalDays) {
     const tbody = document.getElementById('wardTableBody');
@@ -512,25 +514,28 @@
   }
 
   function showDayDetail(dateKey, signups) {
-    const [y, m, d] = dateKey.split('-').map(Number);
-    const label = `${MONTHS_FULL[m-1]} ${d}, ${y}`;
-    const detail = document.getElementById('dayDetail');
-    if (signups.length === 0) {
-      detail.innerHTML = `
-        <div class="day-detail">
-          <h4>${label}</h4>
-          <p style="color:var(--red);font-size:0.8rem;">No families signed up yet for this day.</p>
-        </div>`;
-    } else {
-      const items = signups.map(s =>
-        `<li><span>${s.name}</span> — ${s.ward}</li>`).join('');
-      detail.innerHTML = `
-        <div class="day-detail">
-          <h4>${label} · ${signups.length} family${signups.length > 1 ? ' / families' : ''}</h4>
-          <ul>${items}</ul>
-        </div>`;
-    }
+  const [y, m, d] = dateKey.split('-').map(Number);
+  const label = `${MONTHS_FULL[m-1]} ${d}, ${y}`;
+  const detail = document.getElementById('dayDetail');
+  if (signups.length === 0) {
+    detail.innerHTML = `
+      <div class="day-detail">
+        <h4>${label}</h4>
+        <p style="color:var(--red);font-size:0.8rem;">No families signed up yet for this day.</p>
+      </div>`;
+  } else {
+    const items = signups.map(s => `
+      <li>
+        <span>${s.name}</span> — ${s.ward}
+        ${s.contact ? `<span style="color:var(--gold);margin-left:0.5rem;">📞 ${s.contact}</span>` : ''}
+      </li>`).join('');
+    detail.innerHTML = `
+      <div class="day-detail">
+        <h4>${label} · ${signups.length} family${signups.length > 1 ? ' / families' : ''}</h4>
+        <ul>${items}</ul>
+      </div>`;
   }
+}
 
   // ── Claude AI ────────────────────────────────────────────
   function askQuick(prompt) {
