@@ -322,12 +322,7 @@
       <div class="stat-value green" id="statCovered">—</div>
       <div class="stat-sub">of 40 fast days</div>
     </div>
-    <div class="stat-card">
-      <div class="stat-label">Days Needing Sign-Up</div>
-      <div class="stat-value red" id="statOpen">—</div>
-      <div class="stat-sub">no families yet</div>
-    </div>
-    <div class="stat-card">
+      <div class="stat-card">
       <div class="stat-label">Fasting Tomorrow</div>
       <div class="stat-value yellow" id="statTomorrow">—</div>
       <div class="stat-sub" id="statTomorrowSub">families</div>
@@ -358,10 +353,11 @@
       <div class="panel-body" style="padding: 1rem 0.5rem;">
         <table class="ward-table" id="wardTable">
           <thead><tr>
-            <th>Ward</th>
-            <th>Sign-Ups</th>
-            <th style="min-width:120px">Coverage</th>
-          </tr></thead>
+  <th>Ward</th>
+  <th>Sign-Ups</th>
+  <th>Days Covered</th>
+  <th style="min-width:120px">Coverage %</th>
+</tr></thead>
           <tbody id="wardTableBody"></tbody>
         </table>
       </div>
@@ -487,31 +483,35 @@ else openDays++;
 }
 
   function renderWardTable(wards, totalDays) {
-    const tbody = document.getElementById('wardTableBody');
-    tbody.innerHTML = '';
-    const entries = Object.entries(wards).sort((a,b) => {
-      return (b[1].signups||[]).length - (a[1].signups||[]).length;
-    });
-    entries.forEach(([key, ward]) => {
-      const count = (ward.signups || []).length;
-      const pct   = totalDays > 0 ? Math.min(100, Math.round(count / totalDays * 100)) : 0;
-      const tr = document.createElement('tr');
-      tr.className = 'ward-row';
-      tr.innerHTML = `
-        <td class="ward-name">${ward.wardName || key}</td>
-        <td>${count}</td>
-        <td>
-          <div class="ward-bar-wrap">
-            <div class="ward-bar-track">
-              <div class="ward-bar-fill" style="width:${pct}%"></div>
-            </div>
-            <span class="ward-pct">${pct}%</span>
+  const tbody = document.getElementById('wardTableBody');
+  tbody.innerHTML = '';
+  const entries = Object.entries(wards).sort((a,b) => {
+    const aCovered = new Set((b[1].signups||[]).map(s=>s.date)).size;
+    const bCovered = new Set((a[1].signups||[]).map(s=>s.date)).size;
+    return aCovered - bCovered;
+  });
+  entries.forEach(([key, ward]) => {
+    const signups    = (ward.signups || []).length;
+    const daysCovered = new Set((ward.signups || []).map(s => s.date)).size;
+    const pct        = Math.round(daysCovered / 40 * 100);
+    const tr = document.createElement('tr');
+    tr.className = 'ward-row';
+    tr.innerHTML = `
+      <td class="ward-name">${ward.wardName || key}</td>
+      <td>${signups}</td>
+      <td>${daysCovered}</td>
+      <td>
+        <div class="ward-bar-wrap">
+          <div class="ward-bar-track">
+            <div class="ward-bar-fill" style="width:${pct}%"></div>
           </div>
-        </td>
-      `;
-      tbody.appendChild(tr);
-    });
-  }
+          <span class="ward-pct">${pct}%</span>
+        </div>
+      </td>
+    `;
+    tbody.appendChild(tr);
+  });
+}
 
   function showDayDetail(dateKey, signups) {
   const [y, m, d] = dateKey.split('-').map(Number);
