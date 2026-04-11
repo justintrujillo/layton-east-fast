@@ -9,127 +9,115 @@
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg:      #0F0E0C;
-      --surface: #1A1916;
-      --border:  #2C2A26;
-      --gold:    #C4992A;
-      --gold-lt: #E8C96A;
-      --cream:   #FAF7F2;
-      --muted:   #9E9183;
-      --green:   #4CAF82;
-      --yellow:  #E8B84B;
-      --red:     #E05C4B;
-      --blue:    #5B9BD5;
+      --bg:#0F0E0C;--surface:#1A1916;--border:#2C2A26;--gold:#C4992A;--gold-lt:#E8C96A;
+      --cream:#FAF7F2;--muted:#9E9183;--green:#4CAF82;--yellow:#E8B84B;--red:#E05C4B;--blue:#5B9BD5;
     }
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-    body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--cream); min-height: 100vh; }
-    .skip-link { position: absolute; top: -100%; left: 1rem; background: var(--gold); color: var(--bg); padding: 0.5rem 1rem; border-radius: 0 0 6px 6px; font-size: 0.85rem; font-weight: 500; z-index: 200; text-decoration: none; }
-    .skip-link:focus { top: 0; }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--cream);min-height:100vh}
+    .skip-link{position:absolute;top:-100%;left:1rem;background:var(--gold);color:var(--bg);padding:.5rem 1rem;border-radius:0 0 6px 6px;font-size:.85rem;font-weight:500;z-index:200;text-decoration:none}
+    .skip-link:focus{top:0}
 
-    nav { display: flex; align-items: center; justify-content: space-between; padding: 1rem 2rem; border-bottom: 1px solid var(--border); position: sticky; top: 0; background: rgba(15,14,12,0.92); backdrop-filter: blur(12px); z-index: 50; }
-    .nav-brand { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold-lt); }
-    .nav-brand span { font-size: 0.7rem; font-family: 'Inter', sans-serif; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-right: 0.5rem; }
-    .nav-right { display: flex; gap: 0.75rem; align-items: center; }
-    .btn-refresh { background: var(--surface); border: 1px solid var(--border); color: var(--cream); padding: 0.45rem 1rem; border-radius: 6px; font-size: 0.75rem; font-family: 'Inter', sans-serif; cursor: pointer; letter-spacing: 0.05em; transition: border-color 0.15s; }
-    .btn-refresh:hover { border-color: var(--gold); }
-    .btn-refresh:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
-    .last-updated { font-size: 0.7rem; color: var(--muted); }
+    nav{display:flex;align-items:center;justify-content:space-between;padding:1rem 2rem;border-bottom:1px solid var(--border);position:sticky;top:0;background:rgba(15,14,12,.92);backdrop-filter:blur(12px);z-index:50}
+    .nav-brand{font-family:'Cormorant Garamond',serif;font-size:1.1rem;color:var(--gold-lt)}
+    .nav-brand span{font-size:.7rem;font-family:'Inter',sans-serif;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-right:.5rem}
+    .nav-right{display:flex;gap:.75rem;align-items:center}
+    .btn-refresh{background:var(--surface);border:1px solid var(--border);color:var(--cream);padding:.45rem 1rem;border-radius:6px;font-size:.75rem;font-family:'Inter',sans-serif;cursor:pointer;letter-spacing:.05em;transition:border-color .15s}
+    .btn-refresh:hover{border-color:var(--gold)}
+    .btn-refresh:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+    .last-updated{font-size:.7rem;color:var(--muted)}
 
-    main { padding: 2rem; max-width: 1300px; margin: 0 auto; }
-
-    /* ── Leader lookup ── */
-    .leader-lookup {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-      padding: 1.25rem 1.5rem; margin-bottom: 1.5rem;
-      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
-    }
-    .leader-lookup label {
-      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.12em;
-      text-transform: uppercase; color: var(--muted); white-space: nowrap;
-    }
-    .leader-select {
-      background: var(--bg); border: 1px solid var(--border); border-radius: 7px;
-      padding: 0.5rem 0.85rem; color: var(--cream); font-family: 'Inter', sans-serif;
-      font-size: 0.82rem; min-width: 220px; cursor: pointer; transition: border-color 0.15s;
-    }
-    .leader-select:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(196,153,42,0.15); }
-    .leader-select option { background: var(--bg); color: var(--cream); }
-    .leader-result {
-      flex: 1; font-size: 0.82rem; color: var(--muted); min-width: 200px;
-    }
-    .leader-result strong { color: var(--gold-lt); }
-    .leader-result .lr-families { margin-top: 0.4rem; font-size: 0.78rem; }
-    .leader-result .lr-phone { color: var(--gold); }
+    main{padding:2rem;max-width:1300px;margin:0 auto}
 
     /* ── Stats ── */
-    .stats-row { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 1rem; margin-bottom: 2rem; }
-    .stat-card { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem 1.5rem; }
-    .stat-label { font-size: 0.65rem; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; }
-    .stat-value { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600; line-height: 1; }
-    .stat-value.gold { color: var(--gold-lt); }
-    .stat-value.green { color: var(--green); }
-    .stat-value.yellow { color: var(--yellow); }
-    .stat-sub { font-size: 0.7rem; color: var(--muted); margin-top: 0.3rem; }
+    .stats-row{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:1rem;margin-bottom:1.5rem}
+    .stat-card{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.25rem 1.5rem}
+    .stat-label{font-size:.65rem;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin-bottom:.5rem}
+    .stat-value{font-family:'Cormorant Garamond',serif;font-size:2.2rem;font-weight:600;line-height:1}
+    .stat-value.gold{color:var(--gold-lt)}.stat-value.green{color:var(--green)}.stat-value.yellow{color:var(--yellow)}
+    .stat-sub{font-size:.7rem;color:var(--muted);margin-top:.3rem}
 
-    .two-col { display: grid; grid-template-columns: 1fr 380px; gap: 1.5rem; margin-bottom: 1.5rem; }
-    @media (max-width: 900px) { .two-col { grid-template-columns: 1fr; } }
+    /* ── Ward filter ── */
+    .ward-filter{display:flex;align-items:center;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+    .ward-filter-label{font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+    .ward-chip{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:.35rem .85rem;font-size:.72rem;color:var(--muted);cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif;white-space:nowrap}
+    .ward-chip:hover{border-color:var(--gold);color:var(--gold-lt)}
+    .ward-chip.active{background:var(--gold);border-color:var(--gold);color:var(--bg);font-weight:600}
+    .ward-chip:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
 
-    .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
-    .panel-header { padding: 1rem 1.5rem; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-    .panel-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; }
-    .panel-body { padding: 1.5rem; }
+    /* ── Panels ── */
+    .two-col{display:grid;grid-template-columns:1fr 380px;gap:1.5rem;margin-bottom:1.5rem}
+    @media(max-width:900px){.two-col{grid-template-columns:1fr}}
+    .panel{background:var(--surface);border:1px solid var(--border);border-radius:10px;overflow:hidden}
+    .panel-header{padding:1rem 1.5rem;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+    .panel-title{font-family:'Cormorant Garamond',serif;font-size:1.1rem;font-weight:600}
+    .panel-body{padding:1.5rem}
 
-    .fast-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 4px; }
-    @media (max-width: 600px) { .fast-grid { grid-template-columns: repeat(5, 1fr); } }
-    .fast-day { aspect-ratio: 1; min-width: 44px; min-height: 44px; border-radius: 5px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-size: 0.65rem; font-weight: 500; cursor: pointer; transition: transform 0.1s, box-shadow 0.15s; position: relative; }
-    .fast-day:hover { transform: scale(1.1); z-index: 2; }
-    .fast-day:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
-    .fast-day.covered { background: rgba(76,175,130,0.25); border: 1px solid rgba(76,175,130,0.4); color: var(--green); }
-    .fast-day.empty { background: rgba(224,92,75,0.15); border: 1px solid rgba(224,92,75,0.3); color: var(--red); }
-    .fast-day.partial { background: rgba(232,184,75,0.2); border: 1px solid rgba(232,184,75,0.35); color: var(--yellow); }
-    .fast-day.highlighted { box-shadow: 0 0 0 3px var(--gold), 0 0 12px rgba(196,153,42,0.4); z-index: 3; transform: scale(1.12); }
-    .fast-day .fd-num { font-size: 0.8rem; line-height: 1; }
-    .fast-day .fd-mon { font-size: 0.5rem; opacity: 0.7; margin-top: 1px; }
-    .fast-day .fd-count { position: absolute; top: 2px; right: 3px; font-size: 0.5rem; opacity: 0.8; }
+    /* ── 40-day grid ── */
+    .fast-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:4px}
+    @media(max-width:600px){.fast-grid{grid-template-columns:repeat(5,1fr)}}
+    .fast-day{aspect-ratio:1;min-width:44px;min-height:44px;border-radius:5px;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:.65rem;font-weight:500;cursor:pointer;transition:transform .1s,box-shadow .15s;position:relative}
+    .fast-day:hover{transform:scale(1.1);z-index:2}
+    .fast-day:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+    .fast-day.covered{background:rgba(76,175,130,.25);border:1px solid rgba(76,175,130,.4);color:var(--green)}
+    .fast-day.empty{background:rgba(224,92,75,.15);border:1px solid rgba(224,92,75,.3);color:var(--red)}
+    .fast-day.partial{background:rgba(232,184,75,.2);border:1px solid rgba(232,184,75,.35);color:var(--yellow)}
+    .fast-day.highlighted{box-shadow:0 0 0 3px var(--gold),0 0 12px rgba(196,153,42,.4);z-index:3;transform:scale(1.12)}
+    .fast-day .fd-num{font-size:.8rem;line-height:1}
+    .fast-day .fd-mon{font-size:.5rem;opacity:.7;margin-top:1px}
+    .fast-day .fd-count{position:absolute;top:2px;right:3px;font-size:.5rem;opacity:.8}
 
-    .ward-table { width: 100%; border-collapse: collapse; }
-    .ward-table th { text-align: left; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; padding: 0 0.75rem 0.75rem; }
-    .ward-table td { padding: 0.6rem 0.75rem; border-top: 1px solid var(--border); font-size: 0.82rem; }
-    .ward-row:hover td { background: rgba(255,255,255,0.02); }
-    .ward-name { font-weight: 500; }
-    .ward-bar-wrap { display: flex; align-items: center; gap: 0.6rem; }
-    .ward-bar-track { flex: 1; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
-    .ward-bar-fill { height: 100%; border-radius: 3px; background: var(--gold); transition: width 0.5s ease; }
-    .ward-pct { font-size: 0.72rem; color: var(--muted); min-width: 2.5rem; text-align: right; }
+    /* ── Ward table ── */
+    .ward-table{width:100%;border-collapse:collapse}
+    .ward-table th{text-align:left;font-size:.65rem;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:0 .75rem .75rem}
+    .ward-table td{padding:.6rem .75rem;border-top:1px solid var(--border);font-size:.82rem}
+    .ward-row:hover td{background:rgba(255,255,255,.02)}
+    .ward-name{font-weight:500}
+    .ward-bar-wrap{display:flex;align-items:center;gap:.6rem}
+    .ward-bar-track{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+    .ward-bar-fill{height:100%;border-radius:3px;background:var(--gold);transition:width .5s ease}
+    .ward-pct{font-size:.72rem;color:var(--muted);min-width:2.5rem;text-align:right}
 
-    .day-detail { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 1.25rem; margin-top: 1rem; font-size: 0.82rem; }
-    .day-detail h4 { font-family: 'Cormorant Garamond', serif; font-size: 1rem; margin-bottom: 0.5rem; color: var(--gold-lt); }
-    .day-detail ul { list-style: none; }
-    .day-detail li { padding: 0.25rem 0; border-top: 1px solid var(--border); color: var(--muted); }
-    .day-detail li:first-child { border-top: none; }
-    .day-detail li span { color: var(--cream); }
-    .leader-badge { display: inline-block; background: rgba(196,153,42,0.12); border: 1px solid rgba(196,153,42,0.3); color: var(--gold-lt); font-size: 0.72rem; font-weight: 500; padding: 0.3rem 0.7rem; border-radius: 5px; margin-bottom: 0.75rem; }
+    /* ── Leader lookup ── */
+    .leader-lookup{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.25rem 1.5rem;margin-bottom:1.5rem;display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+    .leader-lookup label{font-size:.7rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);white-space:nowrap}
+    .leader-select{background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:.5rem .85rem;color:var(--cream);font-family:'Inter',sans-serif;font-size:.82rem;min-width:220px;cursor:pointer;transition:border-color .15s}
+    .leader-select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(196,153,42,.15)}
+    .leader-select option{background:var(--bg);color:var(--cream)}
+    .leader-result{flex:1;font-size:.82rem;color:var(--muted);min-width:200px}
+    .leader-result strong{color:var(--gold-lt)}
+    .leader-result .lr-families{margin-top:.4rem;font-size:.78rem}
+    .leader-result .lr-phone{color:var(--gold)}
 
-    .ai-panel { display: flex; flex-direction: column; height: 100%; }
-    .ai-messages { flex: 1; overflow-y: auto; max-height: 420px; padding: 0 0 1rem; display: flex; flex-direction: column; gap: 1rem; }
-    .ai-msg { padding: 0.85rem 1rem; border-radius: 8px; font-size: 0.82rem; line-height: 1.6; }
-    .ai-msg.assistant { background: rgba(196,153,42,0.08); border: 1px solid rgba(196,153,42,0.2); color: var(--cream); }
-    .ai-msg.user { background: var(--border); color: var(--muted); align-self: flex-end; max-width: 85%; }
-    .ai-msg.thinking { background: rgba(196,153,42,0.05); border: 1px solid var(--border); color: var(--muted); font-style: italic; }
-    .ai-input-row { display: flex; gap: 0.5rem; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); }
-    .ai-input { flex: 1; background: var(--bg); border: 1px solid var(--border); border-radius: 7px; padding: 0.55rem 0.85rem; color: var(--cream); font-family: 'Inter', sans-serif; font-size: 0.82rem; transition: border-color 0.15s; }
-    .ai-input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 3px rgba(196,153,42,0.15); }
-    .btn-ask { background: var(--gold); border: none; border-radius: 7px; color: var(--bg); font-weight: 600; font-size: 0.8rem; padding: 0.55rem 1rem; cursor: pointer; transition: background 0.15s; white-space: nowrap; }
-    .btn-ask:hover:not(:disabled) { background: var(--gold-lt); }
-    .btn-ask:focus-visible { outline: 3px solid var(--cream); outline-offset: 2px; }
-    .btn-ask:disabled { opacity: 0.4; cursor: not-allowed; }
-    .quick-prompts { display: flex; flex-wrap: wrap; gap: 0.4rem; margin-bottom: 1rem; }
-    .quick-btn { background: var(--bg); border: 1px solid var(--border); border-radius: 5px; color: var(--muted); font-size: 0.68rem; padding: 0.3rem 0.6rem; cursor: pointer; transition: all 0.15s; font-family: 'Inter', sans-serif; }
-    .quick-btn:hover { border-color: var(--gold); color: var(--gold-lt); }
-    .quick-btn:focus-visible { outline: 2px solid var(--gold); outline-offset: 1px; }
-    .spinner-sm { display: inline-block; width: 12px; height: 12px; border: 2px solid rgba(196,153,42,0.3); border-top-color: var(--gold); border-radius: 50%; animation: spin 0.6s linear infinite; vertical-align: middle; margin-right: 4px; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
+    /* ── Day detail ── */
+    .day-detail{background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:1.25rem;margin-top:1rem;font-size:.82rem}
+    .day-detail h4{font-family:'Cormorant Garamond',serif;font-size:1rem;margin-bottom:.5rem;color:var(--gold-lt)}
+    .day-detail ul{list-style:none}
+    .day-detail li{padding:.25rem 0;border-top:1px solid var(--border);color:var(--muted)}
+    .day-detail li:first-child{border-top:none}
+    .day-detail li span{color:var(--cream)}
+    .leader-badge{display:inline-block;background:rgba(196,153,42,.12);border:1px solid rgba(196,153,42,.3);color:var(--gold-lt);font-size:.72rem;font-weight:500;padding:.3rem .7rem;border-radius:5px;margin-bottom:.75rem}
+
+    /* ── AI ── */
+    .ai-panel{display:flex;flex-direction:column;height:100%}
+    .ai-messages{flex:1;overflow-y:auto;max-height:420px;padding:0 0 1rem;display:flex;flex-direction:column;gap:1rem}
+    .ai-msg{padding:.85rem 1rem;border-radius:8px;font-size:.82rem;line-height:1.6}
+    .ai-msg.assistant{background:rgba(196,153,42,.08);border:1px solid rgba(196,153,42,.2);color:var(--cream)}
+    .ai-msg.user{background:var(--border);color:var(--muted);align-self:flex-end;max-width:85%}
+    .ai-msg.thinking{background:rgba(196,153,42,.05);border:1px solid var(--border);color:var(--muted);font-style:italic}
+    .ai-input-row{display:flex;gap:.5rem;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)}
+    .ai-input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:.55rem .85rem;color:var(--cream);font-family:'Inter',sans-serif;font-size:.82rem;transition:border-color .15s}
+    .ai-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(196,153,42,.15)}
+    .btn-ask{background:var(--gold);border:none;border-radius:7px;color:var(--bg);font-weight:600;font-size:.8rem;padding:.55rem 1rem;cursor:pointer;transition:background .15s;white-space:nowrap}
+    .btn-ask:hover:not(:disabled){background:var(--gold-lt)}
+    .btn-ask:focus-visible{outline:3px solid var(--cream);outline-offset:2px}
+    .btn-ask:disabled{opacity:.4;cursor:not-allowed}
+    .quick-prompts{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem}
+    .quick-btn{background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--muted);font-size:.68rem;padding:.3rem .6rem;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif}
+    .quick-btn:hover{border-color:var(--gold);color:var(--gold-lt)}
+    .quick-btn:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
+    .spinner-sm{display:inline-block;width:12px;height:12px;border:2px solid rgba(196,153,42,.3);border-top-color:var(--gold);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:4px}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
   </style>
 </head>
 <body>
@@ -143,39 +131,25 @@
 </nav>
 <main id="mainContent">
 
-  <!-- Leader lookup -->
-  <div class="leader-lookup" role="region" aria-label="Find your assignment">
-    <label for="leaderSelect">My Assignment</label>
-    <select class="leader-select" id="leaderSelect" onchange="showLeaderAssignment()">
-      <option value="">Select your name…</option>
-    </select>
-    <div class="leader-result" id="leaderResult"></div>
-  </div>
-
   <!-- Stats -->
   <div class="stats-row" role="region" aria-label="Summary statistics">
-    <div class="stat-card">
-      <div class="stat-label">Total Sign-Ups</div>
-      <div class="stat-value gold" id="statTotal" aria-live="polite">—</div>
-      <div class="stat-sub">across all wards</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Days Covered</div>
-      <div class="stat-value green" id="statCovered" aria-live="polite">—</div>
-      <div class="stat-sub">of 40 fast days</div>
-    </div>
-    <div class="stat-card">
-      <div class="stat-label">Next 7 Days</div>
-      <div class="stat-value yellow" id="statNext7" aria-live="polite">—</div>
-      <div class="stat-sub" id="statNext7Sub">days with sign-ups</div>
-    </div>
+    <div class="stat-card"><div class="stat-label">Total Sign-Ups</div><div class="stat-value gold" id="statTotal" aria-live="polite">—</div><div class="stat-sub" id="statTotalSub">across all wards</div></div>
+    <div class="stat-card"><div class="stat-label">Days Covered</div><div class="stat-value green" id="statCovered" aria-live="polite">—</div><div class="stat-sub" id="statCoveredSub">of 40 fast days</div></div>
+    <div class="stat-card"><div class="stat-label">Next 7 Days</div><div class="stat-value yellow" id="statNext7" aria-live="polite">—</div><div class="stat-sub" id="statNext7Sub">days with sign-ups</div></div>
   </div>
 
+  <!-- Ward filter -->
+  <div class="ward-filter" id="wardFilter" role="radiogroup" aria-label="Filter by ward">
+    <span class="ward-filter-label">View</span>
+    <button class="ward-chip active" data-ward="all" role="radio" aria-checked="true" onclick="setWardFilter('all')">All Wards</button>
+  </div>
+
+  <!-- Calendar + Ward table -->
   <div class="two-col">
     <div class="panel">
       <div class="panel-header">
         <div class="panel-title" id="coverageLabel">40-Day Coverage</div>
-        <div style="display:flex;gap:1rem;font-size:0.7rem;color:var(--muted);" aria-hidden="true">
+        <div id="legendText" style="display:flex;gap:1rem;font-size:.7rem;color:var(--muted);" aria-hidden="true">
           <span style="color:var(--green)">● All wards</span>
           <span style="color:var(--yellow)">● Partial</span>
           <span style="color:var(--red)">● Empty</span>
@@ -188,7 +162,7 @@
     </div>
     <div class="panel">
       <div class="panel-header"><div class="panel-title">Ward Participation</div></div>
-      <div class="panel-body" style="padding: 1rem 0.5rem;">
+      <div class="panel-body" style="padding:1rem .5rem;">
         <table class="ward-table" aria-label="Ward participation breakdown">
           <thead><tr><th scope="col">Ward</th><th scope="col">Sign-Ups</th><th scope="col">Days</th><th scope="col" style="min-width:120px">Coverage %</th></tr></thead>
           <tbody id="wardTableBody"></tbody>
@@ -197,10 +171,20 @@
     </div>
   </div>
 
+  <!-- Leader lookup (moved below calendar) -->
+  <div class="leader-lookup" id="leaderLookup" role="region" aria-label="Find your assignment">
+    <label for="leaderSelect">My Assignment</label>
+    <select class="leader-select" id="leaderSelect" onchange="showLeaderAssignment()">
+      <option value="">Select your name…</option>
+    </select>
+    <div class="leader-result" id="leaderResult"></div>
+  </div>
+
+  <!-- AI -->
   <div class="panel" role="region" aria-label="AI coordination assistant">
     <div class="panel-header">
       <div class="panel-title">✦ AI Coordination Assistant</div>
-      <div style="font-size:0.7rem;color:var(--muted);">Powered by Claude</div>
+      <div style="font-size:.7rem;color:var(--muted);">Powered by Claude</div>
     </div>
     <div class="panel-body ai-panel">
       <div class="quick-prompts" role="group" aria-label="Quick questions">
@@ -211,9 +195,7 @@
         <button class="quick-btn" onclick="askQuick('Who is assigned to call families tomorrow and what are their names and numbers?')">Tomorrow's calling assignment</button>
       </div>
       <div class="ai-messages" id="aiMessages" role="log" aria-label="AI conversation" aria-live="polite">
-        <div class="ai-msg assistant">
-          Welcome to the 40-Day Fast coordination dashboard. I have access to live sign-up data across all wards, including leader assignments for each day. Ask me about coverage gaps, draft reminder messages, or get a summary of ward participation. How can I help?
-        </div>
+        <div class="ai-msg assistant">Welcome to the 40-Day Fast coordination dashboard. I have access to live sign-up data across all wards, including leader assignments for each day. Ask me about coverage gaps, draft reminder messages, or get a summary of ward participation. How can I help?</div>
       </div>
       <div class="ai-input-row">
         <label for="aiInput" class="sr-only">Ask the AI assistant a question</label>
@@ -231,75 +213,216 @@
   const MONTHS_SHORT   = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const MONTHS_FULL    = ['January','February','March','April','May','June','July','August','September','October','November','December'];
 
-  let stakeData = null;
+  // Ward name → key mapping for filters
+  const WARD_NAME_MAP = {
+    'Adams Park':'adams-park','Cherry Lane':'cherry-lane','Country Hollow':'country-hollow',
+    'Emerald':'emerald','Fairfield 2nd':'fairfield-2nd','Falcon Ridge':'falcon-ridge','Snow Creek':'snow-creek'
+  };
 
-  // ── Helpers for old/new coverage format ──
+  let stakeData = null;
+  let activeWardFilter = 'all';  // 'all' or a ward name like 'Adams Park'
+
   function getFamilies(entry) {
     if (!entry) return [];
     if (Array.isArray(entry)) return entry;
     if (Array.isArray(entry.families)) return entry.families;
     return [];
   }
-  function getLeader(entry) {
-    if (!entry) return '';
-    return entry.leader || '';
-  }
+  function getLeader(entry) { return (entry && entry.leader) || ''; }
 
   async function loadData() {
     try {
       const res = await fetch(`${APPS_SCRIPT_URL}?mode=stake`);
       stakeData = await res.json();
-      renderDashboard(stakeData);
-      document.getElementById('lastUpdated').textContent = 'Updated ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
     } catch (e) {
       stakeData = buildDemoData();
-      renderDashboard(stakeData);
-      document.getElementById('lastUpdated').textContent = 'Demo data';
     }
+    buildWardFilterChips();
+    renderWithFilter();
+    document.getElementById('lastUpdated').textContent = stakeData._demo
+      ? 'Demo data'
+      : 'Updated ' + new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
   }
 
-  function renderDashboard(data) {
-    const coverage = data.coverage || {};
+  // ── Ward filter ──
+  function buildWardFilterChips() {
+    const container = document.getElementById('wardFilter');
+    // Keep the label and "All Wards" chip, clear the rest
+    while (container.children.length > 2) container.removeChild(container.lastChild);
+    if (!stakeData || !stakeData.wards) return;
+    Object.entries(stakeData.wards).sort((a,b) => a[1].wardName.localeCompare(b[1].wardName)).forEach(([key, ward]) => {
+      const btn = document.createElement('button');
+      btn.className = 'ward-chip';
+      btn.dataset.ward = ward.wardName;
+      btn.setAttribute('role', 'radio');
+      btn.setAttribute('aria-checked', 'false');
+      btn.textContent = ward.wardName;
+      btn.onclick = () => setWardFilter(ward.wardName);
+      container.appendChild(btn);
+    });
+  }
+
+  function setWardFilter(wardName) {
+    activeWardFilter = wardName;
+    document.querySelectorAll('.ward-chip').forEach(c => {
+      const isActive = c.dataset.ward === wardName;
+      c.classList.toggle('active', isActive);
+      c.setAttribute('aria-checked', String(isActive));
+    });
+    renderWithFilter();
+  }
+
+  // ── Render everything based on current filter ──
+  function renderWithFilter() {
+    if (!stakeData) return;
+    const coverage = stakeData.coverage || {};
     const allDates = Object.keys(coverage).sort();
+    const isFiltered = activeWardFilter !== 'all';
+    const filterWard = activeWardFilter;
+
+    // Update legend
+    const legendEl = document.getElementById('legendText');
+    if (isFiltered) {
+      legendEl.innerHTML = `<span style="color:var(--green)">● Has sign-ups</span><span style="color:var(--red)">● No sign-ups</span>`;
+    } else {
+      legendEl.innerHTML = `<span style="color:var(--green)">● All wards</span><span style="color:var(--yellow)">● Partial</span><span style="color:var(--red)">● Empty</span>`;
+    }
+
+    // Calculate stats
     let totalSignups = 0, coveredDays = 0;
     allDates.forEach(d => {
       const families = getFamilies(coverage[d]);
-      totalSignups += families.length;
-      if (new Set(families.map(s => s.ward)).size === TOTAL_WARDS) coveredDays++;
+      const filtered = isFiltered ? families.filter(f => f.ward === filterWard) : families;
+      totalSignups += filtered.length;
+      if (isFiltered) {
+        if (filtered.length > 0) coveredDays++;
+      } else {
+        if (new Set(families.map(s => s.ward)).size === TOTAL_WARDS) coveredDays++;
+      }
     });
     document.getElementById('statTotal').textContent = totalSignups;
+    document.getElementById('statTotalSub').textContent = isFiltered ? filterWard : 'across all wards';
     document.getElementById('statCovered').textContent = coveredDays;
+    document.getElementById('statCoveredSub').textContent = isFiltered ? 'days with sign-ups' : 'of 40 fast days';
 
-    // Next 7 days stat
+    // Next 7 days
     let next7Covered = 0, next7Total = 0;
     for (let i = 0; i < 7; i++) {
       const d = new Date(Date.now() + i * 86400000);
       const key = toDateKey(d);
       if (coverage[key] !== undefined) {
         next7Total++;
-        if (getFamilies(coverage[key]).length > 0) next7Covered++;
+        const families = getFamilies(coverage[key]);
+        const filtered = isFiltered ? families.filter(f => f.ward === filterWard) : families;
+        if (filtered.length > 0) next7Covered++;
       }
     }
     document.getElementById('statNext7').textContent = next7Total > 0 ? `${next7Covered}/${next7Total}` : '—';
     document.getElementById('statNext7Sub').textContent = next7Total > 0 ? 'days with sign-ups' : 'outside fast period';
 
-    renderFastGrid(coverage, allDates);
-    renderWardTable(data.wards || {});
+    // Grid
+    renderFastGrid(coverage, allDates, isFiltered, filterWard);
+
+    // Ward table (always shows all wards, but highlight filtered one)
+    renderWardTable(stakeData.wards || {}, filterWard);
+
+    // Leader dropdown
     populateLeaderDropdown(coverage);
+
+    // Clear day detail
+    document.getElementById('dayDetail').innerHTML = '';
+  }
+
+  // ── 40-day grid (context-aware coloring) ──
+  function renderFastGrid(coverage, allDates, isFiltered, filterWard) {
+    const grid = document.getElementById('fastGrid');
+    grid.innerHTML = '';
+    allDates.forEach(dateKey => {
+      const entry = coverage[dateKey];
+      const allFamilies = getFamilies(entry);
+      const families = isFiltered ? allFamilies.filter(f => f.ward === filterWard) : allFamilies;
+      const leader = getLeader(entry);
+      const [y, m, d] = dateKey.split('-').map(Number);
+
+      let cls = 'fast-day ', countLabel = '';
+      if (isFiltered) {
+        // Ward view: green = has sign-ups, red = none
+        cls += families.length > 0 ? 'covered' : 'empty';
+        if (families.length > 0) countLabel = `<span class="fd-count">${families.length}</span>`;
+      } else {
+        // Stake view: green = all 7 wards, yellow = partial, red = empty
+        const uniqueWards = new Set(allFamilies.map(s => s.ward)).size;
+        if (uniqueWards === 0) cls += 'empty';
+        else if (uniqueWards < TOTAL_WARDS) cls += 'partial';
+        else cls += 'covered';
+        if (uniqueWards > 0) countLabel = `<span class="fd-count">${uniqueWards}/${TOTAL_WARDS}</span>`;
+      }
+
+      const dateLabel = `${MONTHS_FULL[m-1]} ${d} — ${families.length} families${leader ? `, assigned to ${leader}` : ''}`;
+      const cell = document.createElement('div');
+      cell.className = cls;
+      cell.dataset.date = dateKey;
+      cell.setAttribute('role', 'button');
+      cell.setAttribute('tabindex', '0');
+      cell.setAttribute('aria-label', dateLabel);
+      cell.innerHTML = `<span class="fd-num">${d}</span><span class="fd-mon">${MONTHS_SHORT[m-1]}</span>${countLabel}`;
+      cell.addEventListener('click', () => showDayDetail(dateKey, families, leader, isFiltered, filterWard, allFamilies));
+      cell.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showDayDetail(dateKey, families, leader, isFiltered, filterWard, allFamilies); } });
+      grid.appendChild(cell);
+    });
+  }
+
+  function renderWardTable(wards, filterWard) {
+    const tbody = document.getElementById('wardTableBody');
+    tbody.innerHTML = '';
+    const totalDays = generateDateRange(FAST_START_STR, FAST_END_STR).length;
+    const entries = Object.entries(wards).sort((a, b) =>
+      new Set((b[1].signups || []).map(s => s.date)).size - new Set((a[1].signups || []).map(s => s.date)).size
+    );
+    entries.forEach(([key, ward]) => {
+      const signups = (ward.signups || []).length;
+      const daysCovered = new Set((ward.signups || []).map(s => s.date)).size;
+      const pct = Math.round(daysCovered / totalDays * 100);
+      const isHighlighted = filterWard !== 'all' && ward.wardName === filterWard;
+      const tr = document.createElement('tr');
+      tr.className = 'ward-row';
+      if (isHighlighted) tr.style.background = 'rgba(196,153,42,0.08)';
+      tr.innerHTML = `<td class="ward-name">${ward.wardName || key}</td><td>${signups}</td><td>${daysCovered}</td><td><div class="ward-bar-wrap"><div class="ward-bar-track" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100" aria-label="${ward.wardName} coverage"><div class="ward-bar-fill" style="width:${pct}%"></div></div><span class="ward-pct">${pct}%</span></div></td>`;
+      tbody.appendChild(tr);
+    });
+  }
+
+  function showDayDetail(dateKey, families, leader, isFiltered, filterWard, allFamilies) {
+    const [y, m, d] = dateKey.split('-').map(Number);
+    const label = `${MONTHS_FULL[m-1]} ${d}, ${y}`;
+    const detail = document.getElementById('dayDetail');
+    const leaderHtml = leader ? `<div class="leader-badge">📞 Assigned to call: <strong>${leader}</strong></div>` : '';
+
+    // Show filtered families, but note total if filtered
+    const displayFamilies = families;
+    const totalNote = isFiltered && allFamilies.length !== families.length
+      ? ` <span style="font-size:.72rem;color:var(--muted)">(${allFamilies.length} total across all wards)</span>` : '';
+
+    if (displayFamilies.length === 0) {
+      detail.innerHTML = `<div class="day-detail"><h4>${label}${totalNote}</h4>${leaderHtml}<p style="color:var(--red);font-size:.8rem;">No families signed up${isFiltered ? ` from ${filterWard}` : ''} for this day.</p></div>`;
+    } else {
+      const items = displayFamilies.map(s => {
+        const phoneStr = s.phone ? `<span style="color:var(--gold);margin-left:.5rem">${s.phone}</span>` : '';
+        return `<li><span>${s.name}</span> — ${s.ward}${phoneStr}</li>`;
+      }).join('');
+      detail.innerHTML = `<div class="day-detail"><h4>${label} · ${displayFamilies.length} ${displayFamilies.length === 1 ? 'family' : 'families'}${totalNote}</h4>${leaderHtml}<ul>${items}</ul></div>`;
+    }
   }
 
   // ── Leader lookup ──
   function populateLeaderDropdown(coverage) {
     const select = document.getElementById('leaderSelect');
-    // Preserve current selection
     const currentVal = select.value;
     select.innerHTML = '<option value="">Select your name…</option>';
-    const leaders = new Map(); // name → dateKey
+    const leaders = new Map();
     Object.keys(coverage).sort().forEach(dateKey => {
       const leader = getLeader(coverage[dateKey]);
-      if (leader && !leaders.has(leader)) {
-        leaders.set(leader, dateKey);
-      }
+      if (leader && !leaders.has(leader)) leaders.set(leader, dateKey);
     });
     [...leaders.entries()].sort((a, b) => a[0].localeCompare(b[0])).forEach(([name]) => {
       const opt = document.createElement('option');
@@ -307,34 +430,23 @@
       opt.textContent = name;
       select.appendChild(opt);
     });
-    if (currentVal) {
-      select.value = currentVal;
-      showLeaderAssignment();
-    }
+    if (currentVal) { select.value = currentVal; showLeaderAssignment(); }
   }
 
   function showLeaderAssignment() {
     const name = document.getElementById('leaderSelect').value;
     const result = document.getElementById('leaderResult');
-
-    // Remove previous highlights
     document.querySelectorAll('.fast-day.highlighted').forEach(el => el.classList.remove('highlighted'));
-
     if (!name || !stakeData) { result.innerHTML = ''; return; }
-
     const coverage = stakeData.coverage || {};
-    // Find this leader's assigned date
     let assignedDate = null;
     for (const [dateKey, entry] of Object.entries(coverage)) {
       if (getLeader(entry) === name) { assignedDate = dateKey; break; }
     }
-
     if (!assignedDate) { result.innerHTML = '<span style="color:var(--red)">No assignment found.</span>'; return; }
-
     const families = getFamilies(coverage[assignedDate]);
     const [y, m, d] = assignedDate.split('-').map(Number);
     const dateLabel = `${MONTHS_FULL[m-1]} ${d}, ${y}`;
-
     let html = `<strong>${dateLabel}</strong>`;
     if (families.length === 0) {
       html += `<div class="lr-families" style="color:var(--red)">No families signed up yet for your day.</div>`;
@@ -346,75 +458,8 @@
       html += `<div class="lr-families">${families.length} ${families.length === 1 ? 'family' : 'families'} to call:<br>${familyList}</div>`;
     }
     result.innerHTML = html;
-
-    // Highlight their day on the grid
     const cell = document.querySelector(`.fast-day[data-date="${assignedDate}"]`);
-    if (cell) {
-      cell.classList.add('highlighted');
-      cell.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }
-  }
-
-  // ── 40-day grid ──
-  function renderFastGrid(coverage, allDates) {
-    const grid = document.getElementById('fastGrid');
-    grid.innerHTML = '';
-    allDates.forEach(dateKey => {
-      const entry = coverage[dateKey];
-      const families = getFamilies(entry);
-      const leader = getLeader(entry);
-      const uniqueWards = new Set(families.map(s => s.ward)).size;
-      const [y, m, d] = dateKey.split('-').map(Number);
-      const dateLabel = `${MONTHS_FULL[m-1]} ${d} — ${uniqueWards} of ${TOTAL_WARDS} wards, ${families.length} families${leader ? `, assigned to ${leader}` : ''}`;
-      let cls = 'fast-day ';
-      if (uniqueWards === 0) cls += 'empty';
-      else if (uniqueWards < TOTAL_WARDS) cls += 'partial';
-      else cls += 'covered';
-      const cell = document.createElement('div');
-      cell.className = cls;
-      cell.dataset.date = dateKey;
-      cell.setAttribute('role', 'button');
-      cell.setAttribute('tabindex', '0');
-      cell.setAttribute('aria-label', dateLabel);
-      cell.innerHTML = `<span class="fd-num">${d}</span><span class="fd-mon">${MONTHS_SHORT[m-1]}</span>${uniqueWards > 0 ? `<span class="fd-count">${uniqueWards}/${TOTAL_WARDS}</span>` : ''}`;
-      cell.addEventListener('click', () => showDayDetail(dateKey, families, leader));
-      cell.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); showDayDetail(dateKey, families, leader); } });
-      grid.appendChild(cell);
-    });
-  }
-
-  function renderWardTable(wards) {
-    const tbody = document.getElementById('wardTableBody');
-    tbody.innerHTML = '';
-    const totalDays = generateDateRange(FAST_START_STR, FAST_END_STR).length;
-    const entries = Object.entries(wards).sort((a, b) =>
-      new Set((b[1].signups || []).map(s => s.date)).size - new Set((a[1].signups || []).map(s => s.date)).size
-    );
-    entries.forEach(([key, ward]) => {
-      const signups = (ward.signups || []).length;
-      const daysCovered = new Set((ward.signups || []).map(s => s.date)).size;
-      const pct = Math.round(daysCovered / totalDays * 100);
-      const tr = document.createElement('tr');
-      tr.className = 'ward-row';
-      tr.innerHTML = `<td class="ward-name">${ward.wardName || key}</td><td>${signups}</td><td>${daysCovered}</td><td><div class="ward-bar-wrap"><div class="ward-bar-track" role="progressbar" aria-valuenow="${pct}" aria-valuemin="0" aria-valuemax="100" aria-label="${ward.wardName} coverage"><div class="ward-bar-fill" style="width:${pct}%"></div></div><span class="ward-pct">${pct}%</span></div></td>`;
-      tbody.appendChild(tr);
-    });
-  }
-
-  function showDayDetail(dateKey, families, leader) {
-    const [y, m, d] = dateKey.split('-').map(Number);
-    const label = `${MONTHS_FULL[m-1]} ${d}, ${y}`;
-    const detail = document.getElementById('dayDetail');
-    const leaderHtml = leader ? `<div class="leader-badge">📞 Assigned to call: <strong>${leader}</strong></div>` : '';
-    if (families.length === 0) {
-      detail.innerHTML = `<div class="day-detail"><h4>${label}</h4>${leaderHtml}<p style="color:var(--red);font-size:0.8rem;">No families signed up yet for this day.</p></div>`;
-    } else {
-      const items = families.map(s => {
-        const phoneStr = s.phone ? `<span style="color:var(--gold);margin-left:0.5rem;">${s.phone}</span>` : '';
-        return `<li><span>${s.name}</span> — ${s.ward}${phoneStr}</li>`;
-      }).join('');
-      detail.innerHTML = `<div class="day-detail"><h4>${label} · ${families.length} ${families.length === 1 ? 'family' : 'families'}</h4>${leaderHtml}<ul>${items}</ul></div>`;
-    }
+    if (cell) { cell.classList.add('highlighted'); cell.scrollIntoView({ behavior: 'smooth', block: 'nearest' }); }
   }
 
   // ── Claude AI ──
@@ -433,33 +478,21 @@
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           model: 'claude-sonnet-4-20250514', max_tokens: 1000,
-          system: `You are a coordination assistant for the Layton Utah East Stake's 40-Day Fast for missionary work (April 27 – June 5, 2026). You help stake leaders coordinate, identify coverage gaps, draft warm and encouraging messages, and summarize participation.
-
-The 7 wards are: Adams Park, Cherry Lane, Country Hollow, Emerald, Fairfield 2nd, Falcon Ridge, Snow Creek.
-
-Each day has an assigned stake leader who calls/texts the families signed up for that day to thank them and remind them. Leader assignments are in the data below.
-
-Tone: Warm, spiritual, LDS context. Use phrases like "gathering Israel," "One in Christ." Keep responses concise and actionable.
-
-Current stake data:
-${context}`,
+          system: `You are a coordination assistant for the Layton Utah East Stake's 40-Day Fast for missionary work (April 27 – June 5, 2026). You help stake leaders coordinate, identify coverage gaps, draft warm and encouraging messages, and summarize participation.\n\nThe 7 wards are: Adams Park, Cherry Lane, Country Hollow, Emerald, Fairfield 2nd, Falcon Ridge, Snow Creek.\n\nEach day has an assigned stake leader who calls/texts the families signed up for that day to thank them and remind them. Leader assignments are in the data below.\n\nTone: Warm, spiritual, LDS context. Use phrases like "gathering Israel," "One in Christ." Keep responses concise and actionable.\n\nCurrent stake data:\n${context}`,
           messages: [{ role: 'user', content: question }]
         })
       });
       const data = await response.json();
       thinkingEl.remove();
       addMessage(data.content?.[0]?.text || 'Sorry, I couldn\'t get a response.', 'assistant');
-    } catch (e) {
-      thinkingEl.remove();
-      addMessage('I wasn\'t able to connect right now. Please try again in a moment.', 'assistant');
-    } finally { document.getElementById('askBtn').disabled = false; }
+    } catch (e) { thinkingEl.remove(); addMessage('I wasn\'t able to connect right now. Please try again in a moment.', 'assistant'); }
+    finally { document.getElementById('askBtn').disabled = false; }
   }
 
   function buildContextForClaude() {
     if (!stakeData) return 'No data loaded yet.';
     const { coverage, wards } = stakeData;
-    const today = toDateKey(new Date());
-    const tomorrow = toDateKey(new Date(Date.now() + 86400000));
+    const today = toDateKey(new Date()), tomorrow = toDateKey(new Date(Date.now() + 86400000));
     const allDates = Object.keys(coverage).sort();
     const emptyDays = [], coveredDays = [];
     allDates.forEach(d => { (getFamilies(coverage[d]).length === 0 ? emptyDays : coveredDays).push(d); });
@@ -468,55 +501,32 @@ ${context}`,
     const wardSummaries = Object.entries(wards).map(([, w]) => `${w.wardName}: ${(w.signups || []).length} sign-ups`).join(', ');
     const upcoming = [];
     for (let i = 0; i <= 7; i++) {
-      const d = new Date(Date.now() + i * 86400000);
-      const key = toDateKey(d);
+      const d = new Date(Date.now() + i * 86400000), key = toDateKey(d);
       if (coverage[key] !== undefined) {
-        const families = getFamilies(coverage[key]);
-        const leader = getLeader(coverage[key]) || 'Unassigned';
-        const names = families.map(s => `${s.name} (${s.ward}${s.phone ? ', ' + s.phone : ''})`).join(', ') || 'NO FAMILIES YET';
-        upcoming.push(`${key}: Leader: ${leader} | Families: ${names}`);
+        const families = getFamilies(coverage[key]), leader = getLeader(coverage[key]) || 'Unassigned';
+        upcoming.push(`${key}: Leader: ${leader} | Families: ${families.map(s => `${s.name} (${s.ward}${s.phone ? ', ' + s.phone : ''})`).join(', ') || 'NO FAMILIES YET'}`);
       }
     }
-    return `
-SUMMARY:
-- Total sign-ups: ${Object.values(coverage).reduce((a, c) => a + getFamilies(c).length, 0)}
-- Days covered (all 7 wards): ${coveredDays.length}/40
-- Days with no sign-up: ${emptyDays.length}
-- Today: ${today}
-- Tomorrow (${tomorrow}): Leader: ${tLeader} | ${tFamilies.length} families — ${tFamilies.map(s => `${s.name} (${s.ward}${s.phone ? ', ' + s.phone : ''})`).join(', ') || 'NONE'}
-
-WARD BREAKDOWN:
-${wardSummaries}
-
-UPCOMING 8 DAYS (with leader assignments):
-${upcoming.join('\n')}
-
-EMPTY DAYS (need families):
-${emptyDays.slice(0, 15).join(', ')}${emptyDays.length > 15 ? ` … and ${emptyDays.length - 15} more` : ''}
-    `.trim();
+    return `SUMMARY:\n- Total sign-ups: ${Object.values(coverage).reduce((a, c) => a + getFamilies(c).length, 0)}\n- Days covered (all 7 wards): ${coveredDays.length}/40\n- Days with no sign-up: ${emptyDays.length}\n- Today: ${today}\n- Tomorrow (${tomorrow}): Leader: ${tLeader} | ${tFamilies.length} families — ${tFamilies.map(s => `${s.name} (${s.ward}${s.phone ? ', ' + s.phone : ''})`).join(', ') || 'NONE'}\n\nWARD BREAKDOWN:\n${wardSummaries}\n\nUPCOMING 8 DAYS (with leader assignments):\n${upcoming.join('\n')}\n\nEMPTY DAYS (need families):\n${emptyDays.slice(0, 15).join(', ')}${emptyDays.length > 15 ? ' … and ' + (emptyDays.length - 15) + ' more' : ''}`;
   }
 
   function addMessage(text, role) {
-    const wrap = document.getElementById('aiMessages');
-    const el = document.createElement('div');
-    el.className = `ai-msg ${role}`;
-    el.innerHTML = text;
-    wrap.appendChild(el);
-    wrap.scrollTop = wrap.scrollHeight;
-    return el;
+    const wrap = document.getElementById('aiMessages'), el = document.createElement('div');
+    el.className = `ai-msg ${role}`; el.innerHTML = text;
+    wrap.appendChild(el); wrap.scrollTop = wrap.scrollHeight; return el;
   }
 
   function buildDemoData() {
     const dates = generateDateRange(FAST_START_STR, FAST_END_STR);
-    const sampleNames = ['Johnson Family','Smith Family','Williams Family','Brown Family','Davis Family','Miller Family','Wilson Family','Moore Family','Taylor Family'];
+    const sampleNames = ['Johnson Family','Smith Family','Williams Family','Brown Family','Davis Family','Miller Family','Wilson Family','Moore Family','Taylor Family','Anderson Family','Thomas Family','Harris Family','Clark Family','Lewis Family'];
     const wardNames = ['Adams Park','Cherry Lane','Country Hollow','Emerald','Fairfield 2nd','Falcon Ridge','Snow Creek'];
     const wardKeys = ['adams-park','cherry-lane','country-hollow','emerald','fairfield-2nd','falcon-ridge','snow-creek'];
     const leaders = ['Justin Trujillo','Mark Pendleton','Brandon Archuletta','Paul Barber','Zach Bateman','Tyler Blackner','Reuben Jessop','Ethan Loveless','Jim Madsen','Matt Parkin','Shaun Pearce','Chad Phares','Joshua Dunyon','Kerby Cate','Ken Bauer','Jonathan Liechty','Eric Sailsbery','Todd Crawford','Chad Stowell','Blake Wahlen','Ali Hancock','Tia Riddle','Erin Crane','Erica Bauer','Justin Hugie','Brian Rogers','Robert Iverson','Jennifer Davis','JanaRae Rollins','Michelle Downard','Julie Jenkins','Lynn Hinrichs','Wayne Airmet','Allison Taylor','Angie Paskett','Erin Halbasch','Kristy Clark','Joyce Christensen','Gina Anderson','Mark Anderson'];
     const coverage = {};
     dates.forEach((d, i) => {
       const families = [];
-      if (Math.random() > 0.3) {
-        const n = Math.floor(Math.random() * 3) + 1;
+      if (Math.random() > 0.15) {
+        const n = Math.floor(Math.random() * 5) + 1;
         for (let j = 0; j < n; j++) families.push({ name: sampleNames[Math.floor(Math.random() * sampleNames.length)], ward: wardNames[Math.floor(Math.random() * wardNames.length)], phone: '801-555-' + String(1000 + Math.floor(Math.random() * 9000)) });
       }
       coverage[d] = { families, leader: leaders[i] || '' };
@@ -527,7 +537,7 @@ ${emptyDays.slice(0, 15).join(', ')}${emptyDays.length > 15 ? ` … and ${emptyD
       dates.forEach(d => { getFamilies(coverage[d]).filter(s => s.ward === wardNames[i]).forEach(s => signups.push({ ...s, date: d })); });
       wardsObj[k] = { wardName: wardNames[i], signups };
     });
-    return { coverage, wards: wardsObj };
+    return { coverage, wards: wardsObj, _demo: true };
   }
 
   function toDateKey(d) { return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`; }
