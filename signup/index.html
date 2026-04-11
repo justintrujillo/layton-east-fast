@@ -8,7 +8,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
   <style>
-    /* ── Variables ── */
     :root {
       --gold:    #C4992A;
       --gold-lt: #E8C96A;
@@ -20,386 +19,181 @@
       --red:     #B85042;
       --taken:   #F0EBE3;
     }
-
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    body {
-      font-family: 'Inter', sans-serif;
-      background: var(--cream);
-      color: var(--ink);
-      min-height: 100vh;
-    }
+    body { font-family: 'Inter', sans-serif; background: var(--cream); color: var(--ink); min-height: 100vh; }
 
     /* ── Skip link (ADA) ── */
     .skip-link {
-      position: absolute;
-      top: -100%;
-      left: 1rem;
-      background: var(--gold);
-      color: var(--ink);
-      padding: 0.5rem 1rem;
-      border-radius: 0 0 6px 6px;
-      font-size: 0.85rem;
-      font-weight: 500;
-      z-index: 200;
-      text-decoration: none;
+      position: absolute; top: -100%; left: 1rem;
+      background: var(--gold); color: var(--ink);
+      padding: 0.5rem 1rem; border-radius: 0 0 6px 6px;
+      font-size: 0.85rem; font-weight: 500; z-index: 200; text-decoration: none;
     }
     .skip-link:focus { top: 0; }
 
     /* ── Header ── */
     header {
-      background: var(--ink);
-      color: var(--cream);
-      text-align: center;
-      padding: 3rem 1.5rem 2.5rem;
-      position: relative;
-      overflow: hidden;
+      background: var(--ink); color: var(--cream); text-align: center;
+      padding: 3rem 1.5rem 2.5rem; position: relative; overflow: hidden;
     }
     header::before {
-      content: '';
-      position: absolute;
-      inset: 0;
+      content: ''; position: absolute; inset: 0;
       background: radial-gradient(ellipse at 50% 0%, rgba(196,153,42,0.18) 0%, transparent 70%);
     }
     .header-eyebrow {
-      font-size: 0.7rem;
-      font-weight: 500;
-      letter-spacing: 0.22em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 0.75rem;
-      position: relative;
+      font-size: 0.7rem; font-weight: 500; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--gold); margin-bottom: 0.75rem; position: relative;
     }
     header h1 {
       font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 5vw, 3rem);
-      font-weight: 600;
-      line-height: 1.1;
-      margin-bottom: 0.5rem;
-      position: relative;
+      font-size: clamp(2rem, 5vw, 3rem); font-weight: 600;
+      line-height: 1.1; margin-bottom: 0.5rem; position: relative;
     }
     header h1 em { font-style: italic; color: var(--gold-lt); }
     .header-sub {
-      font-size: 0.85rem;
-      color: rgba(250,247,242,0.6);
-      font-weight: 300;
-      margin-top: 0.5rem;
-      position: relative;
+      font-size: 0.85rem; color: rgba(250,247,242,0.6);
+      font-weight: 300; margin-top: 0.5rem; position: relative;
     }
     .ward-badge {
-      display: inline-block;
-      margin-top: 1.25rem;
-      background: rgba(196,153,42,0.15);
-      border: 1px solid rgba(196,153,42,0.4);
-      color: var(--gold-lt);
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      padding: 0.35rem 1rem;
-      border-radius: 2rem;
-      position: relative;
+      display: inline-block; margin-top: 1.25rem;
+      background: rgba(196,153,42,0.15); border: 1px solid rgba(196,153,42,0.4);
+      color: var(--gold-lt); font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      padding: 0.35rem 1rem; border-radius: 2rem; position: relative;
     }
 
-    /* ── Main ── */
-    main {
-      max-width: 680px;
-      margin: 0 auto;
-      padding: 2.5rem 1.5rem 4rem;
-    }
-
+    main { max-width: 680px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
     .section-title {
       font-family: 'Cormorant Garamond', serif;
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: var(--ink);
-      margin-bottom: 0.25rem;
+      font-size: 1.4rem; font-weight: 600; color: var(--ink); margin-bottom: 0.25rem;
     }
-    .section-sub {
-      font-size: 0.8rem;
-      color: var(--muted);
-      margin-bottom: 1.25rem;
-    }
+    .section-sub { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.25rem; }
 
     /* ── Calendar ── */
     .calendar-wrap { margin-bottom: 2.5rem; }
     .calendar-header-row {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 3px;
-      margin-bottom: 3px;
+      display: grid; grid-template-columns: repeat(7, 1fr);
+      gap: 3px; margin-bottom: 3px;
     }
     .calendar-header-row span {
-      text-align: center;
-      font-size: 0.65rem;
-      font-weight: 500;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
-      padding: 0.2rem 0;
+      text-align: center; font-size: 0.65rem; font-weight: 500;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); padding: 0.2rem 0;
     }
-    .calendar-grid {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 3px;
-    }
+    .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 3px; }
     .day-cell {
-      aspect-ratio: 1;
-      min-width: 44px;             /* ADA: 44px minimum touch target */
-      min-height: 44px;
-      border-radius: 6px;
-      border: 1.5px solid var(--border);
-      background: white;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.15s ease;
-      position: relative;
-      padding: 2px;
+      aspect-ratio: 1; min-width: 44px; min-height: 44px;
+      border-radius: 6px; border: 1.5px solid var(--border); background: white;
+      cursor: pointer; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      transition: all 0.15s ease; position: relative; padding: 2px;
     }
     .day-cell:hover:not(.taken):not(.empty-cell) {
-      border-color: var(--gold);
-      background: #FFFBF2;
-      transform: translateY(-1px);
-      box-shadow: 0 3px 10px rgba(196,153,42,0.15);
+      border-color: var(--gold); background: #FFFBF2;
+      transform: translateY(-1px); box-shadow: 0 3px 10px rgba(196,153,42,0.15);
     }
-    /* ADA: visible focus ring for keyboard navigation */
-    .day-cell:focus-visible {
-      outline: 3px solid var(--gold);
-      outline-offset: 2px;
-    }
+    .day-cell:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
     .day-cell.selected { background: var(--gold); border-color: var(--gold); color: white; }
-    .day-cell.taken    { background: var(--taken); border-color: #D8D0C8; }
+    .day-cell.taken { background: var(--taken); border-color: #D8D0C8; }
     .day-cell.empty-cell { background: transparent; border-color: transparent; cursor: default; }
-    .day-num  { font-size: 0.78rem; font-weight: 500; line-height: 1; }
-    .day-month {
-      font-size: 0.55rem;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-top: 1px;
-    }
+    .day-num { font-size: 0.78rem; font-weight: 500; line-height: 1; }
+    .day-month { font-size: 0.55rem; letter-spacing: 0.05em; text-transform: uppercase; color: var(--muted); margin-top: 1px; }
     .day-cell.selected .day-month { color: rgba(255,255,255,0.75); }
-    .day-cell.taken .day-num { color: #6B6355; }   /* ADA: darkened from #A09890 for contrast */
+    .day-cell.taken .day-num { color: #6B6355; }
     .day-taken-dot { width: 4px; height: 4px; border-radius: 50%; background: var(--green); margin-top: 2px; }
 
-    /* ── Legend ── */
     .legend { display: flex; gap: 1.25rem; margin-top: 0.75rem; flex-wrap: wrap; }
     .legend-item { display: flex; align-items: center; gap: 0.4rem; font-size: 0.72rem; color: var(--muted); }
     .legend-dot { width: 12px; height: 12px; border-radius: 3px; border: 1.5px solid var(--border); }
-    .legend-dot.avail  { background: white; }
-    .legend-dot.sel    { background: var(--gold); border-color: var(--gold); }
+    .legend-dot.avail { background: white; }
+    .legend-dot.sel { background: var(--gold); border-color: var(--gold); }
     .legend-dot.filled { background: var(--taken); }
 
     /* ── Form ── */
-    .signup-form {
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 1.75rem;
-    }
+    .signup-form { background: white; border: 1px solid var(--border); border-radius: 12px; padding: 1.75rem; }
     .selected-date-display {
-      background: #FFFBF2;
-      border: 1px solid rgba(196,153,42,0.35);
-      border-radius: 8px;
-      padding: 0.9rem 1.1rem;
-      margin-bottom: 1.5rem;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.1rem;
-      color: var(--ink);
+      background: #FFFBF2; border: 1px solid rgba(196,153,42,0.35);
+      border-radius: 8px; padding: 0.9rem 1.1rem; margin-bottom: 1.5rem;
+      font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--ink);
     }
     .selected-date-display span {
-      display: block;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.7rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--gold);
-      font-weight: 500;
-      margin-bottom: 0.2rem;
+      display: block; font-family: 'Inter', sans-serif; font-size: 0.7rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold);
+      font-weight: 500; margin-bottom: 0.2rem;
     }
     label {
-      display: block;
-      font-size: 0.75rem;
-      font-weight: 500;
-      letter-spacing: 0.07em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 0.4rem;
+      display: block; font-size: 0.75rem; font-weight: 500;
+      letter-spacing: 0.07em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem;
     }
-    .label-optional {
-      color: var(--muted);
-      font-weight: 400;
-      text-transform: none;
-      letter-spacing: 0;
-      font-size: 0.72rem;
+    .label-optional { color: var(--muted); font-weight: 400; text-transform: none; letter-spacing: 0; font-size: 0.72rem; }
+    input[type="text"], input[type="tel"] {
+      width: 100%; padding: 0.65rem 0.85rem; border: 1.5px solid var(--border);
+      border-radius: 7px; font-family: 'Inter', sans-serif; font-size: 0.9rem;
+      color: var(--ink); background: var(--cream); transition: border-color 0.15s; margin-bottom: 0.4rem;
     }
-    input[type="text"], input[type="email"], input[type="tel"] {
-      width: 100%;
-      padding: 0.65rem 0.85rem;
-      border: 1.5px solid var(--border);
-      border-radius: 7px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.9rem;
-      color: var(--ink);
-      background: var(--cream);
-      transition: border-color 0.15s;
-      margin-bottom: 0.4rem;
-    }
-    /* ADA: visible focus ring on inputs */
-    input:focus {
-      outline: none;
-      border-color: var(--gold);
-      background: white;
-      box-shadow: 0 0 0 3px rgba(196,153,42,0.2);
-    }
-    .form-note {
-      font-size: 0.73rem;
-      color: var(--muted);
-      margin-bottom: 1.1rem;
-      line-height: 1.5;
-    }
+    input:focus { outline: none; border-color: var(--gold); background: white; box-shadow: 0 0 0 3px rgba(196,153,42,0.2); }
+    .form-note { font-size: 0.73rem; color: var(--muted); margin-bottom: 1.1rem; line-height: 1.5; }
     .required-star { color: var(--red); margin-left: 2px; }
-
     .btn-submit {
-      width: 100%;
-      padding: 0.85rem;
-      background: var(--ink);
-      color: var(--cream);
-      border: none;
-      border-radius: 8px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.85rem;
-      font-weight: 500;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      cursor: pointer;
-      transition: background 0.15s, transform 0.1s;
-      margin-top: 0.5rem;
+      width: 100%; padding: 0.85rem; background: var(--ink); color: var(--cream);
+      border: none; border-radius: 8px; font-family: 'Inter', sans-serif;
+      font-size: 0.85rem; font-weight: 500; letter-spacing: 0.08em;
+      text-transform: uppercase; cursor: pointer;
+      transition: background 0.15s, transform 0.1s; margin-top: 0.5rem;
     }
     .btn-submit:hover:not(:disabled) { background: #2E2B25; transform: translateY(-1px); }
     .btn-submit:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
     .btn-submit:disabled { opacity: 0.45; cursor: not-allowed; }
 
-    /* ── No-date prompt ── */
     .no-date-msg { text-align: center; padding: 2rem 1rem; color: var(--muted); font-size: 0.85rem; }
     .no-date-msg .arrow { font-size: 1.5rem; display: block; margin-bottom: 0.5rem; opacity: 0.4; }
 
     /* ── Success card ── */
     .success-card {
-      text-align: center;
-      padding: 3rem 2rem;
-      background: white;
-      border: 1px solid var(--border);
-      border-radius: 12px;
+      text-align: center; padding: 3rem 2rem; background: white;
+      border: 1px solid var(--border); border-radius: 12px;
     }
     .success-icon { font-size: 2.5rem; margin-bottom: 1rem; }
-    .success-card h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.75rem;
-      margin-bottom: 0.5rem;
-    }
-    .success-card p {
-      font-size: 0.85rem;
-      color: var(--muted);
-      max-width: 400px;
-      margin: 0 auto;
-      line-height: 1.6;
-    }
+    .success-card h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; margin-bottom: 0.5rem; }
+    .success-card p { font-size: 0.85rem; color: var(--muted); max-width: 400px; margin: 0 auto; line-height: 1.6; }
 
-    /* ── Add to Calendar buttons ── */
-    .calendar-buttons {
-      margin-top: 1.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.6rem;
-      max-width: 320px;
-      margin-left: auto;
-      margin-right: auto;
-    }
+    /* ── Calendar buttons ── */
+    .calendar-buttons { margin-top: 1.5rem; display: flex; flex-direction: column; gap: 0.6rem; max-width: 320px; margin-left: auto; margin-right: auto; }
     .btn-calendar {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1rem;
-      border-radius: 8px;
-      font-family: 'Inter', sans-serif;
-      font-size: 0.82rem;
-      font-weight: 500;
-      text-decoration: none;
-      cursor: pointer;
+      display: flex; align-items: center; justify-content: center; gap: 0.5rem;
+      padding: 0.75rem 1rem; border-radius: 8px; font-family: 'Inter', sans-serif;
+      font-size: 0.82rem; font-weight: 500; text-decoration: none; cursor: pointer;
       transition: transform 0.1s, box-shadow 0.15s;
     }
     .btn-calendar:hover { transform: translateY(-1px); box-shadow: 0 3px 10px rgba(0,0,0,0.1); }
     .btn-calendar:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
-    .btn-calendar-google {
-      background: var(--ink);
-      color: var(--cream);
-      border: none;
-    }
-    .btn-calendar-ics {
-      background: white;
-      color: var(--ink);
-      border: 1.5px solid var(--border);
-    }
+    .btn-calendar-google { background: var(--ink); color: var(--cream); border: none; }
+    .btn-calendar-ics { background: white; color: var(--ink); border: 1.5px solid var(--border); }
     .btn-calendar-ics:hover { border-color: var(--gold); }
     .btn-calendar svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .calendar-note { margin-top: 1rem; font-size: 0.73rem; color: var(--muted); max-width: 360px; margin-left: auto; margin-right: auto; line-height: 1.5; }
 
-    .calendar-note {
-      margin-top: 1rem;
-      font-size: 0.73rem;
-      color: var(--muted);
-      max-width: 360px;
-      margin-left: auto;
-      margin-right: auto;
-      line-height: 1.5;
-    }
-
-    /* ── Toast ── */
+    /* ── Toast & Loading ── */
     .toast {
-      position: fixed;
-      bottom: 1.5rem;
-      left: 50%;
+      position: fixed; bottom: 1.5rem; left: 50%;
       transform: translateX(-50%) translateY(4rem);
-      background: var(--ink);
-      color: var(--cream);
-      padding: 0.75rem 1.5rem;
-      border-radius: 8px;
-      font-size: 0.82rem;
-      transition: transform 0.3s ease;
-      z-index: 999;
-      white-space: nowrap;
+      background: var(--ink); color: var(--cream);
+      padding: 0.75rem 1.5rem; border-radius: 8px;
+      font-size: 0.82rem; transition: transform 0.3s ease; z-index: 999; white-space: nowrap;
     }
     .toast.show { transform: translateX(-50%) translateY(0); }
     .toast.error { background: var(--red); }
-
-    /* ── Loading overlay ── */
     .loading-overlay {
-      display: none;
-      position: fixed;
-      inset: 0;
-      background: rgba(28,26,23,0.35);
-      z-index: 100;
-      align-items: center;
-      justify-content: center;
+      display: none; position: fixed; inset: 0;
+      background: rgba(28,26,23,0.35); z-index: 100; align-items: center; justify-content: center;
     }
     .loading-overlay.active { display: flex; }
-    .spinner {
-      width: 36px; height: 36px;
-      border: 3px solid rgba(250,247,242,0.3);
-      border-top-color: var(--cream);
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-    }
+    .spinner { width: 36px; height: 36px; border: 3px solid rgba(250,247,242,0.3); border-top-color: var(--cream); border-radius: 50%; animation: spin 0.7s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }
   </style>
 </head>
 <body>
 
-<!-- ADA: skip navigation link -->
 <a href="#formSection" class="skip-link">Skip to sign-up form</a>
 
 <header role="banner">
@@ -411,11 +205,10 @@
 
 <main id="mainContent">
 
-  <!-- Calendar Section -->
   <div class="calendar-wrap" role="region" aria-label="Fast day calendar">
     <div class="section-title" id="calendarLabel">Choose Your Fast Day</div>
     <div class="section-sub">Select a day below. Multiple families may sign up for the same day.</div>
-    <div class="calendar-header-row" role="row" aria-hidden="true">
+    <div class="calendar-header-row" aria-hidden="true">
       <span>Sun</span><span>Mon</span><span>Tue</span>
       <span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span>
     </div>
@@ -427,7 +220,6 @@
     </div>
   </div>
 
-  <!-- Form Section -->
   <div id="formSection" role="region" aria-label="Sign-up form">
     <div class="section-title">Your Information</div>
     <div class="section-sub" id="formSub" aria-live="polite">Select a day above to continue.</div>
@@ -447,10 +239,6 @@
       <input type="text" id="nameInput" placeholder="e.g. The Johnson Family" autocomplete="name" required aria-required="true" />
       <div class="form-note">&nbsp;</div>
 
-      <label for="emailInput">Email Address <span class="required-star" aria-hidden="true">*</span><span class="sr-only">(required)</span></label>
-      <input type="email" id="emailInput" placeholder="your@email.com" autocomplete="email" required aria-required="true" />
-      <div class="form-note">So stake leaders can reach you if needed.</div>
-
       <label for="phoneInput">Phone Number <span class="label-optional">(optional)</span></label>
       <input type="tel" id="phoneInput" placeholder="801-555-1234" autocomplete="tel" />
       <div class="form-note">Helpful for stake leaders who will call to thank you before your fast.</div>
@@ -458,13 +246,10 @@
       <button class="btn-submit" id="submitBtn" type="button" onclick="submitSignup()">Sign Me Up</button>
     </div>
 
-    <!-- Success state -->
     <div id="successCard" class="success-card" style="display:none;" role="status" aria-live="polite">
       <div class="success-icon" aria-hidden="true">🕊️</div>
       <h2>You're signed up!</h2>
       <p id="successText">Thank you for joining the fast. Your faith is helping to gather Israel.</p>
-
-      <!-- Add to Calendar buttons (generated dynamically) -->
       <div class="calendar-buttons" id="calendarButtons"></div>
       <div class="calendar-note">Add this event to your calendar for an automatic reminder the day before your fast.</div>
     </div>
@@ -472,72 +257,51 @@
 
 </main>
 
-<!-- Toast (ADA: role="alert" for screen reader announcements) -->
 <div class="toast" id="toast" role="alert" aria-live="assertive"></div>
 <div class="loading-overlay" id="loadingOverlay" aria-hidden="true"><div class="spinner"></div></div>
 
-<!-- Screen reader only utility -->
-<style>.sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); border: 0; }</style>
-
 <script>
-  // ── Config ──────────────────────────────────────────────────
-  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw4aoZyCUrW2fOK5WPQ7FGtQJyjSz2MrfF2Laq4Rt3Ztp3wWHfGsw8MdiWYETx-UOAhOA/exec';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwI986YagdeAVHtiYKNp6YZvvh7tI0uMHYxMLXrvfwiKd37aCvd_u-UtA-1qDOsRU7I/exec';
   const FAST_START = new Date('2026-04-27T00:00:00');
   const FAST_END   = new Date('2026-06-05T00:00:00');
 
   const WARD_NAMES = {
-    'adams-park':     'Adams Park',
-    'cherry-lane':    'Cherry Lane',
-    'country-hollow': 'Country Hollow',
-    'emerald':        'Emerald',
-    'fairfield-2nd':  'Fairfield 2nd',
-    'falcon-ridge':   'Falcon Ridge',
-    'snow-creek':     'Snow Creek',
+    'adams-park': 'Adams Park', 'cherry-lane': 'Cherry Lane',
+    'country-hollow': 'Country Hollow', 'emerald': 'Emerald',
+    'fairfield-2nd': 'Fairfield 2nd', 'falcon-ridge': 'Falcon Ridge',
+    'snow-creek': 'Snow Creek',
   };
-
   const MONTHS     = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   const MONTH_FULL = ['January','February','March','April','May','June',
                       'July','August','September','October','November','December'];
 
-  let currentWard  = '';
-  let selectedDate = '';
-  let takenDays    = {};
+  let currentWard = '', selectedDate = '', takenDays = {};
 
-  // ── Init ────────────────────────────────────────────────────
   async function init() {
     const params = new URLSearchParams(window.location.search);
-    currentWard  = params.get('ward') || '';
-
+    currentWard = params.get('ward') || '';
     if (!WARD_NAMES[currentWard]) {
       document.getElementById('wardBadge').textContent = 'Unknown Ward';
       showToast('Invalid ward link. Please use the link provided by your ward.', true);
       return;
     }
-
     document.getElementById('wardBadge').textContent = WARD_NAMES[currentWard];
     document.title = `Fast Sign-Up — ${WARD_NAMES[currentWard]}`;
-
     await loadWardData();
     buildCalendar();
   }
 
-  // ── Load ward data ──────────────────────────────────────────
   async function loadWardData() {
     try {
       const res  = await fetch(`${APPS_SCRIPT_URL}?ward=${encodeURIComponent(currentWard)}`);
       const data = await res.json();
       takenDays  = data.days || {};
-    } catch (e) {
-      takenDays = {};
-    }
+    } catch (e) { takenDays = {}; }
   }
 
-  // ── Build calendar grid ─────────────────────────────────────
   function buildCalendar() {
     const grid = document.getElementById('calendarGrid');
     grid.innerHTML = '';
-
-    // Leading empty cells to align with day-of-week
     const startDow = FAST_START.getDay();
     for (let i = 0; i < startDow; i++) {
       const empty = document.createElement('div');
@@ -545,102 +309,69 @@
       empty.setAttribute('aria-hidden', 'true');
       grid.appendChild(empty);
     }
-
     const cur = new Date(FAST_START);
     while (cur <= FAST_END) {
       const dateKey = toDateKey(cur);
       const signups = takenDays[dateKey] || [];
-      const hasSig  = signups.length > 0;
+      const hasSig = signups.length > 0;
       const dateLabel = formatDate(dateKey);
-      const sigDesc = hasSig ? ` — ${signups.length} signed up` : ' — available';
-
       const cell = document.createElement('div');
       cell.className = 'day-cell' + (hasSig ? ' taken' : '');
       cell.dataset.date = dateKey;
       cell.setAttribute('role', 'button');
       cell.setAttribute('tabindex', '0');
-      cell.setAttribute('aria-label', `${dateLabel}${sigDesc}`);
+      cell.setAttribute('aria-label', `${dateLabel}${hasSig ? ` — ${signups.length} signed up` : ' — available'}`);
       cell.innerHTML = `
         <span class="day-num">${cur.getDate()}</span>
         <span class="day-month">${MONTHS[cur.getMonth()]}</span>
         ${hasSig ? '<div class="day-taken-dot" aria-hidden="true"></div>' : ''}
       `;
-
       cell.addEventListener('click', () => selectDay(dateKey, cell));
-      cell.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') {
-          e.preventDefault();
-          selectDay(dateKey, cell);
-        }
-      });
-
+      cell.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); selectDay(dateKey, cell); } });
       grid.appendChild(cell);
       cur.setDate(cur.getDate() + 1);
     }
   }
 
-  // ── Select a day ────────────────────────────────────────────
   function selectDay(dateKey, cell) {
-    document.querySelectorAll('.day-cell.selected').forEach(c => {
-      c.classList.remove('selected');
-      c.setAttribute('aria-pressed', 'false');
-    });
+    document.querySelectorAll('.day-cell.selected').forEach(c => { c.classList.remove('selected'); c.setAttribute('aria-pressed', 'false'); });
     selectedDate = dateKey;
     cell.classList.add('selected');
     cell.setAttribute('aria-pressed', 'true');
-
     const label = formatDate(dateKey);
     document.getElementById('selectedDateText').textContent = label;
-    document.getElementById('noDateMsg').style.display   = 'none';
-    document.getElementById('signupForm').style.display  = 'block';
+    document.getElementById('noDateMsg').style.display = 'none';
+    document.getElementById('signupForm').style.display = 'block';
     document.getElementById('successCard').style.display = 'none';
     document.getElementById('formSub').textContent = `Signing up for ${label}`;
-
-    // Focus the name input for smooth keyboard flow
     document.getElementById('nameInput').focus();
   }
 
-  // ── Submit signup ───────────────────────────────────────────
   async function submitSignup() {
     const name  = document.getElementById('nameInput').value.trim();
-    const email = document.getElementById('emailInput').value.trim();
     const phone = document.getElementById('phoneInput').value.trim();
-
-    if (!selectedDate)                  { showToast('Please select a day first.', true);          return; }
-    if (!name)                          { showToast('Please enter your name.', true);              return; }
-    if (!email || !email.includes('@')) { showToast('Please enter a valid email address.', true);  return; }
+    if (!selectedDate) { showToast('Please select a day first.', true); return; }
+    if (!name)         { showToast('Please enter your name.', true);    return; }
 
     setLoading(true);
     document.getElementById('submitBtn').disabled = true;
     document.getElementById('submitBtn').setAttribute('aria-disabled', 'true');
 
     try {
-      const res  = await fetch(APPS_SCRIPT_URL, {
+      const res = await fetch(APPS_SCRIPT_URL, {
         method: 'POST',
-        body:   JSON.stringify({
-          ward:    currentWard,
-          date:    selectedDate,
-          name:    name,
-          contact: email,
-          phone:   phone || ''
-        })
+        body: JSON.stringify({ ward: currentWard, date: selectedDate, name, phone: phone || '' })
       });
       const data = await res.json();
-
       if (data.success) {
-        document.getElementById('signupForm').style.display  = 'none';
+        document.getElementById('signupForm').style.display = 'none';
         document.getElementById('successCard').style.display = 'block';
-        document.getElementById('successText').textContent   =
+        document.getElementById('successText').textContent =
           `Thank you, ${name}! Your fast on ${formatDate(selectedDate)} has been recorded. ` +
-          `A stake leader will reach out to you the day before to express our gratitude.`;
-
-        // Mark the day as taken on the calendar
+          `A stake leader will reach out to you to express our gratitude.`;
         const calCell = document.querySelector(`.day-cell[data-date="${selectedDate}"]`);
         if (calCell) calCell.classList.add('taken');
-
-        // Build "Add to Calendar" buttons
         renderCalendarButtons(name, selectedDate);
-
         showToast('Sign-up successful!');
       } else {
         showToast(data.error || 'Something went wrong. Please try again.', true);
@@ -651,108 +382,63 @@
       showToast('Network error. Please try again.', true);
       document.getElementById('submitBtn').disabled = false;
       document.getElementById('submitBtn').removeAttribute('aria-disabled');
-    } finally {
-      setLoading(false);
-    }
+    } finally { setLoading(false); }
   }
 
-  // ── Add to Calendar ─────────────────────────────────────────
   function renderCalendarButtons(familyName, dateKey) {
     const container = document.getElementById('calendarButtons');
     const [y, m, d] = dateKey.split('-').map(Number);
-    const dateLabel  = formatDate(dateKey);
-
-    // Event details
-    const title       = 'Stake Fast Day — One in Christ';
-    const description = `Dear ${familyName},\n\nThank you for joining the Layton Utah East Stake 40-Day Fast for missionary work.\n\nToday is your fast day. We are grateful for your faith. A stake leader will reach out to express our appreciation.\n\nWith love,\nLayton Utah East Stake Presidency`;
-
-    // Date strings for all-day event
+    const title = 'Stake Fast Day — One in Christ';
+    const description = `Dear ${familyName},\\n\\nThank you for joining the Layton Utah East Stake 40-Day Fast for missionary work.\\n\\nToday is your fast day. We are grateful for your faith. A stake leader will reach out to express our appreciation.\\n\\nWith love,\\nLayton Utah East Stake Presidency`;
     const dateStart = `${y}${String(m).padStart(2,'0')}${String(d).padStart(2,'0')}`;
-    const nextDay   = new Date(y, m - 1, d + 1);
-    const dateEnd   = `${nextDay.getFullYear()}${String(nextDay.getMonth()+1).padStart(2,'0')}${String(nextDay.getDate()).padStart(2,'0')}`;
+    const nextDay = new Date(y, m - 1, d + 1);
+    const dateEnd = `${nextDay.getFullYear()}${String(nextDay.getMonth()+1).padStart(2,'0')}${String(nextDay.getDate()).padStart(2,'0')}`;
 
-    // ─ Google Calendar URL ─
-    const gcalParams = new URLSearchParams({
-      action:  'TEMPLATE',
-      text:    title,
-      dates:   `${dateStart}/${dateEnd}`,
-      details: description,
-    });
-    // Add reminder: 8 AM day before = 960 minutes before midnight of event day
-    // Google Calendar uses the 'recur' param for reminders via URL — but the simplest
-    // approach is setting the reminder in the generated .ics for non-Google users.
-    // For Google Calendar, the user's default reminder setting will apply.
+    const gcalParams = new URLSearchParams({ action: 'TEMPLATE', text: title, dates: `${dateStart}/${dateEnd}`, details: description.replace(/\\n/g, '\n') });
     const gcalUrl = `https://calendar.google.com/calendar/render?${gcalParams.toString()}`;
 
-    // ─ .ics file for Apple Calendar / Outlook / others ─
-    // Reminder: VALARM at 8 AM the day before (16 hours before midnight of event day)
     const icsContent = [
-      'BEGIN:VCALENDAR',
-      'VERSION:2.0',
-      'PRODID:-//Layton East Stake//Fast Signup//EN',
-      'CALSCALE:GREGORIAN',
-      'METHOD:PUBLISH',
-      'BEGIN:VEVENT',
-      `DTSTART;VALUE=DATE:${dateStart}`,
-      `DTEND;VALUE=DATE:${dateEnd}`,
-      `SUMMARY:${title}`,
-      `DESCRIPTION:${description.replace(/\n/g, '\\n')}`,
-      'STATUS:CONFIRMED',
-      'BEGIN:VALARM',
-      'TRIGGER:-PT16H',
-      'ACTION:DISPLAY',
+      'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Layton East Stake//Fast Signup//EN',
+      'CALSCALE:GREGORIAN','METHOD:PUBLISH','BEGIN:VEVENT',
+      `DTSTART;VALUE=DATE:${dateStart}`,`DTEND;VALUE=DATE:${dateEnd}`,
+      `SUMMARY:${title}`,`DESCRIPTION:${description}`,
+      'STATUS:CONFIRMED','BEGIN:VALARM','TRIGGER:-PT16H','ACTION:DISPLAY',
       'DESCRIPTION:Your stake fast day is tomorrow. Thank you for participating!',
-      'END:VALARM',
-      'END:VEVENT',
-      'END:VCALENDAR'
+      'END:VALARM','END:VEVENT','END:VCALENDAR'
     ].join('\r\n');
-
-    const icsBlob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
-    const icsUrl  = URL.createObjectURL(icsBlob);
+    const icsUrl = URL.createObjectURL(new Blob([icsContent], { type: 'text/calendar;charset=utf-8' }));
 
     container.innerHTML = `
       <a href="${gcalUrl}" target="_blank" rel="noopener" class="btn-calendar btn-calendar-google" aria-label="Add fast day to Google Calendar">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
         Add to Google Calendar
       </a>
       <a href="${icsUrl}" download="stake-fast-day.ics" class="btn-calendar btn-calendar-ics" aria-label="Download calendar file for Apple Calendar or Outlook">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
-        </svg>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
         Download for Apple / Outlook
       </a>
     `;
   }
 
-  // ── Utilities ───────────────────────────────────────────────
   function toDateKey(date) {
-    const y = date.getFullYear();
-    const m = String(date.getMonth() + 1).padStart(2, '0');
-    const d = String(date.getDate()).padStart(2, '0');
-    return `${y}-${m}-${d}`;
+    return `${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,'0')}-${String(date.getDate()).padStart(2,'0')}`;
   }
-
   function formatDate(dateKey) {
     const [y, m, d] = dateKey.split('-').map(Number);
-    return `${MONTH_FULL[m - 1]} ${d}, ${y}`;
+    return `${MONTH_FULL[m-1]} ${d}, ${y}`;
   }
-
   function setLoading(on) {
-    const overlay = document.getElementById('loadingOverlay');
-    overlay.classList.toggle('active', on);
-    overlay.setAttribute('aria-hidden', String(!on));
+    const o = document.getElementById('loadingOverlay');
+    o.classList.toggle('active', on);
+    o.setAttribute('aria-hidden', String(!on));
   }
-
   function showToast(msg, isError = false) {
     const t = document.getElementById('toast');
     t.textContent = msg;
-    t.className   = 'toast' + (isError ? ' error' : '');
+    t.className = 'toast' + (isError ? ' error' : '');
     t.classList.add('show');
     setTimeout(() => t.classList.remove('show'), 3500);
   }
-
   init();
 </script>
 </body>
