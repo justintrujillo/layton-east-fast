@@ -301,7 +301,7 @@
         leaders.set(leader, dateKey);
       }
     });
-    leaders.forEach((dateKey, name) => {
+    [...leaders.entries()].sort((a, b) => a[0].localeCompare(b[0])).forEach(([name]) => {
       const opt = document.createElement('option');
       opt.value = name;
       opt.textContent = name;
