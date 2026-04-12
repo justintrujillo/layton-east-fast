@@ -87,21 +87,6 @@
     .day-detail li span{color:var(--cream)}
     .leader-badge{display:inline-block;background:rgba(196,153,42,.12);border:1px solid rgba(196,153,42,.3);color:var(--gold-lt);font-size:.72rem;font-weight:500;padding:.3rem .7rem;border-radius:5px;margin-bottom:.75rem}
 
-    .ai-panel{display:flex;flex-direction:column;height:100%}
-    .ai-messages{flex:1;overflow-y:auto;max-height:420px;padding:0 0 1rem;display:flex;flex-direction:column;gap:1rem}
-    .ai-msg{padding:.85rem 1rem;border-radius:8px;font-size:.82rem;line-height:1.6}
-    .ai-msg.assistant{background:rgba(196,153,42,.08);border:1px solid rgba(196,153,42,.2);color:var(--cream)}
-    .ai-msg.user{background:var(--border);color:var(--muted);align-self:flex-end;max-width:85%}
-    .ai-msg.thinking{background:rgba(196,153,42,.05);border:1px solid var(--border);color:var(--muted);font-style:italic}
-    .ai-input-row{display:flex;gap:.5rem;margin-top:1rem;padding-top:1rem;border-top:1px solid var(--border)}
-    .ai-input{flex:1;background:var(--bg);border:1px solid var(--border);border-radius:7px;padding:.55rem .85rem;color:var(--cream);font-family:'Inter',sans-serif;font-size:.82rem;transition:border-color .15s}
-    .ai-input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px rgba(196,153,42,.15)}
-    .btn-ask{background:var(--gold);border:none;border-radius:7px;color:var(--bg);font-weight:600;font-size:.8rem;padding:.55rem 1rem;cursor:pointer;transition:background .15s;white-space:nowrap}
-    .btn-ask:hover:not(:disabled){background:var(--gold-lt)}.btn-ask:focus-visible{outline:3px solid var(--cream);outline-offset:2px}.btn-ask:disabled{opacity:.4;cursor:not-allowed}
-    .quick-prompts{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:1rem}
-    .quick-btn{background:var(--bg);border:1px solid var(--border);border-radius:5px;color:var(--muted);font-size:.68rem;padding:.3rem .6rem;cursor:pointer;transition:all .15s;font-family:'Inter',sans-serif}
-    .quick-btn:hover{border-color:var(--gold);color:var(--gold-lt)}.quick-btn:focus-visible{outline:2px solid var(--gold);outline-offset:1px}
-    .spinner-sm{display:inline-block;width:12px;height:12px;border:2px solid rgba(196,153,42,.3);border-top-color:var(--gold);border-radius:50%;animation:spin .6s linear infinite;vertical-align:middle;margin-right:4px}
     @keyframes spin{to{transform:rotate(360deg)}}
     .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);border:0}
   </style>
@@ -157,26 +142,7 @@
     <select class="leader-select" id="leaderSelect" onchange="showLeaderAssignment()"><option value="">Select your name…</option></select>
     <div class="leader-result" id="leaderResult"></div>
   </div>
-  <div class="panel" role="region" aria-label="AI coordination assistant">
-    <div class="panel-header"><div class="panel-title">✦ AI Coordination Assistant</div><div style="font-size:.7rem;color:var(--muted);">Powered by Claude</div></div>
-    <div class="panel-body ai-panel">
-      <div class="quick-prompts" role="group" aria-label="Quick questions">
-        <button class="quick-btn" onclick="askQuick('Which days still need sign-ups?')">Which days need coverage?</button>
-        <button class="quick-btn" onclick="askQuick('Draft reminder texts for families fasting tomorrow')">Draft tomorrow's reminder texts</button>
-        <button class="quick-btn" onclick="askQuick('Which wards have the lowest participation?')">Ward participation gaps</button>
-        <button class="quick-btn" onclick="askQuick('Give me a summary of overall fast progress')">Overall progress summary</button>
-        <button class="quick-btn" onclick="askQuick('Who is assigned to call families tomorrow and what are their names and numbers?')">Tomorrow's calling assignment</button>
-      </div>
-      <div class="ai-messages" id="aiMessages" role="log" aria-label="AI conversation" aria-live="polite">
-        <div class="ai-msg assistant">Welcome to the 40-Day Fast coordination dashboard. I have access to live sign-up data across all wards, including leader assignments for each day. Ask me about coverage gaps, draft reminder messages, or get a summary of ward participation. How can I help?</div>
-      </div>
-      <div class="ai-input-row">
-        <label for="aiInput" class="sr-only">Ask the AI assistant a question</label>
-        <input class="ai-input" id="aiInput" type="text" placeholder="Ask about coverage, draft a message, or get insights…" onkeydown="if(event.key==='Enter') askClaude()" />
-        <button class="btn-ask" id="askBtn" onclick="askClaude()">Ask</button>
-      </div>
-    </div>
-  </div>
+
 </main>
 <script>
 const APPS_SCRIPT_URL='https://script.google.com/macros/s/AKfycbz0Mg3TXC7LsLMIWs_j9IB3uUpxj-wVUnMpUE1fjnhtP8gweuHhXc3mxse7o9wchIA65A/exec';
@@ -359,36 +325,6 @@ function showLeaderAssignment(){
   if(cell){cell.classList.add('highlighted');cell.scrollIntoView({behavior:'smooth',block:'nearest'})}
 }
 
-// ── Claude AI ──
-function askQuick(p){document.getElementById('aiInput').value=p;askClaude()}
-async function askClaude(){
-  const input=document.getElementById('aiInput'),q=input.value.trim();if(!q)return;
-  input.value='';addMessage(q,'user');
-  const th=addMessage('<span class="spinner-sm"></span> Thinking…','thinking');
-  document.getElementById('askBtn').disabled=true;
-  try{
-    const ctx=buildContextForClaude();
-    const r=await fetch('https://api.anthropic.com/v1/messages',{method:'POST',headers:{'Content-Type':'application/json'},
-      body:JSON.stringify({model:'claude-sonnet-4-20250514',max_tokens:1000,
-        system:`You are a coordination assistant for the Layton Utah East Stake's 40-Day Fast for missionary work (April 27 – June 5, 2026). You help stake leaders coordinate, identify coverage gaps, draft warm and encouraging messages, and summarize participation.\n\nThe 7 wards are: Adams Park, Cherry Lane, Country Hollow, Emerald, Fairfield 2nd, Falcon Ridge, Snow Creek.\n\nEach day has an assigned stake leader who calls/texts the families signed up for that day to thank them and remind them.\n\nTone: Warm, spiritual, LDS context. Use phrases like "gathering Israel," "One in Christ." Keep responses concise and actionable.\n\nCurrent stake data:\n${ctx}`,
-        messages:[{role:'user',content:q}]})});
-    const data=await r.json();th.remove();addMessage(data.content?.[0]?.text||'Sorry, I couldn\'t get a response.','assistant');
-  }catch(e){th.remove();addMessage('I wasn\'t able to connect right now. Please try again in a moment.','assistant')}
-  finally{document.getElementById('askBtn').disabled=false}
-}
-function buildContextForClaude(){
-  if(!stakeData)return'No data loaded yet.';
-  const{coverage,wards}=stakeData,today=toDateKey(new Date()),tmrw=toDateKey(new Date(Date.now()+864e5));
-  const allDates=Object.keys(coverage).sort(),empty=[],covered=[];
-  allDates.forEach(d=>{(getFamilies(coverage[d]).length===0?empty:covered).push(d)});
-  const tF=getFamilies(coverage[tmrw]),tL=getLeader(coverage[tmrw])||'Unassigned';
-  const ws=Object.entries(wards).map(([,w])=>`${w.wardName}: ${(w.signups||[]).length} sign-ups`).join(', ');
-  const up=[];for(let i=0;i<=7;i++){const d=new Date(Date.now()+i*864e5),k=toDateKey(d);
-    if(coverage[k]!==undefined){const f=getFamilies(coverage[k]),l=getLeader(coverage[k])||'Unassigned';
-    up.push(`${k}: Leader: ${l} | Families: ${f.map(s=>`${s.name} (${s.ward}${s.phone?', '+s.phone:''})`).join(', ')||'NO FAMILIES YET'}`)}}
-  return`SUMMARY:\n- Total sign-ups: ${Object.values(coverage).reduce((a,c)=>a+getFamilies(c).length,0)}\n- Days covered (all 7 wards): ${covered.length}/40\n- Days with no sign-up: ${empty.length}\n- Today: ${today}\n- Tomorrow (${tmrw}): Leader: ${tL} | ${tF.length} families — ${tF.map(s=>`${s.name} (${s.ward}${s.phone?', '+s.phone:''})`).join(', ')||'NONE'}\n\nWARD BREAKDOWN:\n${ws}\n\nUPCOMING 8 DAYS:\n${up.join('\n')}\n\nEMPTY DAYS:\n${empty.slice(0,15).join(', ')}${empty.length>15?' … and '+(empty.length-15)+' more':''}`;
-}
-function addMessage(t,r){const w=document.getElementById('aiMessages'),e=document.createElement('div');e.className=`ai-msg ${r}`;e.innerHTML=t;w.appendChild(e);w.scrollTop=w.scrollHeight;return e}
 
 function buildDemoData(){
   const dates=generateDateRange(FAST_START_STR,FAST_END_STR);
