@@ -201,10 +201,11 @@ function renderWithFilter(){
   document.getElementById('statCovered').textContent=coveredDays;
   document.getElementById('statCoveredSub').textContent=isF?'days with sign-ups':'of 40 fast days';
 
-  // Next 7 days
+  // Next 7 days — uses same "covered" definition as Days Covered stat
   let n7c=0,n7t=0;
   for(let i=0;i<7;i++){const d=new Date(Date.now()+i*86400000),k=toDateKey(d);
-    if(coverage[k]!==undefined){n7t++;const fam=getFamilies(coverage[k]),fil=isF?fam.filter(f=>f.ward===fW):fam;if(fil.length>0)n7c++}}
+    if(coverage[k]!==undefined){n7t++;const fam=getFamilies(coverage[k]);
+    if(isF){if(fam.filter(f=>f.ward===fW).length>0)n7c++}else{if(new Set(fam.map(s=>s.ward)).size===TOTAL_WARDS)n7c++}}}
   document.getElementById('statNext7').textContent=n7t>0?`${n7c}/${n7t}`:'—';
   document.getElementById('statNext7Sub').textContent=isF?fW:'across all wards';
 
